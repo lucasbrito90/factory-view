@@ -26,6 +26,11 @@ const AuthRoutes = {
       component: () => import('@/views/pages/landingpage/FAQs.vue')
     },
     {
+      name: 'Callback',
+      path: '/auth/callback',
+      component: () => import('@/views/pages/auth/Callback.vue')
+    },
+    {
       name: 'Login 2',
       path: '/auth/login2',
       component: () => import('@/views/authentication/auth2/LoginPage2.vue')

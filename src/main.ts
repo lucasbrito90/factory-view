@@ -45,6 +45,7 @@ import Vue3EasyDataTable from 'vue3-easy-data-table';
 //i18
 import { createI18n } from 'vue-i18n';
 import messages from '@/utils/locales/messages';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const i18n = createI18n({
   locale: 'en',
@@ -56,11 +57,14 @@ const i18n = createI18n({
 const app = createApp(App);
 fakeBackend();
 
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
+
 app.use(router);
 app.component('EasyDataTable', Vue3EasyDataTable);
 app.use(PerfectScrollbarPlugin);
 app.component('SvgSprite', SvgSprite);
-app.use(createPinia());
+app.use(pinia);
 app.use(VueTablerIcons);
 app.use(print);
 app.use(Vue3Marquee);

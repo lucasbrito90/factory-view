@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import MainRoutes from './MainRoutes';
 import AuthRoutes from './AuthRoutes';
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore, type AuthStore } from '@/stores/auth';
 import ComponentRoutes from './ComponentRoutes';
 import { useUIStore } from '@/stores/ui';
 
@@ -16,22 +16,7 @@ export const router = createRouter({
     ComponentRoutes,
     AuthRoutes
   ]
-});
-
-interface User {
-  // Define the properties and their types for the user data here
-  // For example:
-  id: number;
-  name: string;
-}
-
-// Assuming you have a type/interface for your authentication store
-interface AuthStore {
-  user: User | null;
-  returnUrl: string | null;
-  login(username: string, password: string): Promise<void>;
-  logout(): void;
-}
+})
 
 router.beforeEach(async (to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
