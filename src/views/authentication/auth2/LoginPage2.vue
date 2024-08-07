@@ -2,9 +2,6 @@
 import Logo from '@/layouts/dashboard/logo/LogoMain.vue';
 import AuthLogin from '../authForms/AuthLogin.vue';
 // assets
-import facebookImg from '@/assets/images/icons/facebook.svg';
-import twitterImg from '@/assets/images/icons/twitter.svg';
-import googleImg from '@/assets/images/icons/google.svg';
 
 import leftImg from '@/assets/images/auth/img-auth-sideimg.png';
 </script>
@@ -23,41 +20,6 @@ import leftImg from '@/assets/images/auth/img-auth-sideimg.png';
               <div class="pa-sm-10 pa-6 loginBox">
                 <div class="text-center">
                   <Logo class="mb-5" />
-                  <v-list aria-label="social list" aria-busy="true">
-                    <v-list-item color="secondary" variant="tonal" href="#" rounded="md" class="mb-2">
-                      <v-img
-                        :src="facebookImg"
-                        alt="social icon"
-                        class="mr-2 d-inline-flex"
-                        style="vertical-align: text-top"
-                        width="9"
-                        height="16"
-                      />
-                      Sign in with facebook
-                    </v-list-item>
-                    <v-list-item color="secondary" variant="tonal" href="#" rounded="md" class="mb-2">
-                      <v-img
-                        :src="twitterImg"
-                        alt="social icon"
-                        class="mr-2 d-inline-flex"
-                        style="vertical-align: middle"
-                        width="16"
-                        height="13"
-                      />
-                      Sign in with twitter
-                    </v-list-item>
-                    <v-list-item color="secondary" variant="tonal" href="#" rounded="md" class="mb-2">
-                      <v-img
-                        :src="googleImg"
-                        alt="social icon"
-                        class="mr-2 d-inline-flex"
-                        style="vertical-align: text-top"
-                        width="16"
-                        height="16"
-                      />
-                      Sign in with google
-                    </v-list-item>
-                  </v-list>
                   <v-row>
                     <v-col cols="12" class="d-flex align-center">
                       <v-divider />

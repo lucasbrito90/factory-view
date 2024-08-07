@@ -3,8 +3,8 @@ import Logo from '@/layouts/dashboard/logo/LogoMain.vue';
 import AuthLogin from '../authForms/AuthLogin.vue';
 // assets
 import facebookImg from '@/assets/images/icons/facebook.svg';
-import twitterImg from '@/assets/images/icons/twitter.svg';
 import googleImg from '@/assets/images/icons/google.svg';
+import twitterImg from '@/assets/images/icons/twitter.svg';
 
 import { createApp } from 'vue';
 import { VueReCaptcha, useReCaptcha } from 'vue-recaptcha-v3';

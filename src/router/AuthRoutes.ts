@@ -26,6 +26,11 @@ const AuthRoutes = {
       component: () => import('@/views/pages/landingpage/FAQs.vue')
     },
     {
+      name: 'Callback',
+      path: '/auth/callback',
+      component: () => import('@/views/pages/auth/Callback.vue')
+    },
+    {
       name: 'Login 2',
       path: '/auth/login2',
       component: () => import('@/views/authentication/auth2/LoginPage2.vue')
@@ -67,7 +72,7 @@ const AuthRoutes = {
     },
     {
       name: 'Register',
-      path: '/auth/register1',
+      path: '/auth/register',
       component: () => import('@/views/authentication/auth1/RegisterPage1.vue')
     },
     {
@@ -87,7 +92,7 @@ const AuthRoutes = {
     },
     {
       name: 'Code Verification',
-      path: '/auth/code-verify1',
+      path: '/auth/code-verify',
       component: () => import('@/views/authentication/auth1/CodeVerification1.vue')
     },
     {

@@ -1,22 +1,60 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref, type ComputedRef, type Ref } from 'vue';
 import SvgSprite from '@/components/shared/SvgSprite.vue';
-const show1 = ref(false);
-const password = ref('');
-const email = ref('');
+import { registerUser, type RegisterUserError } from '@/services/user';
+import { useRouter } from 'vue-router';
+
+const showPwd = ref(false);
+const showConfrmPwd = ref(false);
+const router= useRouter();
+
+const firstname: Ref<string> = ref('');
+const lastname: Ref<string> =  ref('');
+const password: Ref<string> = ref('');
+const confirmPassword: Ref<string> = ref('');
+const email: Ref<string> = ref('');
+
+const fullname: ComputedRef<string> = computed(() => `${firstname.value} ${lastname.value}`);
+
 const Regform = ref();
-const firstname = ref('');
-const lastname = ref('');
+
 const passwordRules = ref([
   (v: string) => !!v || 'Password is required',
-  (v: string) => (v && v.length <= 10) || 'Password must be less than 10 characters'
+  (v: string) => (v && v.length >= 8) || 'Password must be less than 8 characters',
+  (v: string) => /(?=.*[!@#$%^&*])/.test(v) || 'Password must contain at least one special character',
+  (v: string) => /(?=.*[A-Z])/.test(v) || 'Password must contain at least one uppercase letter',
 ]);
-const firstRules = ref([(v: string) => !!v || 'First Name is required']);
-const lastRules = ref([(v: string) => !!v || 'Last Name is required']);
+const confirmPasswordRules = ref([
+  (v: string) => !!v || 'Confirm Password is required',
+  (v: string) => v === password.value || 'Password does not match'
+]);
+
+const firstRules = ref([
+  (v: string) => !!v || 'First Name is required',
+  (v: string) => (v && v.length >= 3) || 'First name must be at least 3 characters long'
+]);
+
+const lastRules = ref([
+  (v: string) => !!v || 'Last Name is required',
+  (v: string) => (v && v.length >= 3) || 'Last name must be at least 3 characters long'
+]);
 const emailRules = ref([(v: string) => !!v || 'E-mail is required', (v: string) => /.+@.+\..+/.test(v) || 'E-mail must be valid']);
 
-function validate() {
+async function validate() {
   Regform.value.validate();
+
+  if (Regform.value.isValid) {
+    const response: boolean | RegisterUserError = await registerUser({
+      email: email.value,
+      password: password.value,
+      password_confirmation: confirmPassword.value,
+      name: fullname.value,
+    });
+
+    if (response === true) {
+      router.push({ name: 'Landingpage' });
+    }
+  }
 }
 </script>
 
@@ -25,7 +63,7 @@ function validate() {
     <h3 class="text-h3 text-center mb-0">Sign up</h3>
     <router-link to="/auth/login1" class="text-primary text-decoration-none">Already have an account?</router-link>
   </div>
-  <v-form ref="Regform" lazy-validation action="/dashboards/analytical" class="mt-7 loginForm">
+  <v-form ref="Regform" fast-fail action="/dashboards/analytical" class="mt-7 loginForm">
     <v-row class="my-0">
       <v-col cols="12" sm="6" class="py-0">
         <div class="mb-6">
@@ -59,10 +97,6 @@ function validate() {
       </v-col>
     </v-row>
     <div class="mb-6">
-      <v-label>Company</v-label>
-      <v-text-field hide-details="auto" variant="outlined" class="mt-2" color="primary" placeholder="Demo Inc."></v-text-field>
-    </div>
-    <div class="mb-6">
       <v-label>Email Address*</v-label>
       <v-text-field
         v-model="email"
@@ -73,6 +107,7 @@ function validate() {
         hide-details="auto"
         variant="outlined"
         color="primary"
+        type="email"
       ></v-text-field>
     </div>
     <div class="mb-6">
@@ -85,13 +120,35 @@ function validate() {
         variant="outlined"
         color="primary"
         hide-details="auto"
-        :type="show1 ? 'text' : 'password'"
+        :type="showPwd ? 'text' : 'password'"
         class="pwdInput mt-2"
       >
         <template v-slot:append-inner>
           <v-btn color="secondary" aria-label="icon" icon rounded variant="text">
-            <SvgSprite name="custom-eye-invisible" style="width: 20px; height: 20px" v-if="show1 == false" @click="show1 = !show1" />
-            <SvgSprite name="custom-eye" style="width: 20px; height: 20px" v-if="show1 == true" @click="show1 = !show1" />
+            <SvgSprite name="custom-eye-invisible" style="width: 20px; height: 20px" v-if="showPwd == false" @click="showPwd = !showPwd" />
+            <SvgSprite name="custom-eye" style="width: 20px; height: 20px" v-if="showPwd == true" @click="showPwd = !showPwd" />
+          </v-btn>
+        </template>
+      </v-text-field>
+    </div>
+
+    <div class="mb-6">
+      <v-label>Confirm Password</v-label>
+      <v-text-field
+        v-model="confirmPassword"
+        :rules="confirmPasswordRules"
+        placeholder="*****"
+        required
+        variant="outlined"
+        color="primary"
+        hide-details="auto"
+        :type="showConfrmPwd ? 'text' : 'password'"
+        class="pwdInput mt-2"
+      >
+        <template v-slot:append-inner>
+          <v-btn color="secondary" aria-label="icon" icon rounded variant="text">
+            <SvgSprite name="custom-eye-invisible" style="width: 20px; height: 20px" v-if="showConfrmPwd == false" @click="showConfrmPwd = !showConfrmPwd" />
+            <SvgSprite name="custom-eye" style="width: 20px; height: 20px" v-if="showConfrmPwd == true" @click="showConfrmPwd = !showConfrmPwd" />
           </v-btn>
         </template>
       </v-text-field>

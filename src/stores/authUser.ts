@@ -1,21 +1,26 @@
+import type { User } from '@/context/enrollment/interfaces/user';
+import { getUserByAccessToken } from '@/context/enrollment/services/userapi';
 import { defineStore } from 'pinia';
+import { ref, type Ref } from 'vue';
 
-import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
+export const useAuthUserStore = defineStore(
+'authUser', () => {
+  const userAuthenticated: Ref<User | null> = ref(null);
 
-const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
-
-export const useUsersStore = defineStore({
-  id: 'Authuser',
-  state: () => ({
-    users: {}
-  }),
-  actions: {
-    async getAll() {
-      this.users = { loading: true };
-      fetchWrapper
-        .get(baseUrl)
-        .then((users) => (this.users = users))
-        .catch((error) => (this.users = { error }));
-    }
+  async function getUserAccessToken(): Promise<void> {
+    userAuthenticated.value = await getUserByAccessToken();
   }
+
+  async function setUserAuthenticated(user: User): Promise<void> {
+    userAuthenticated.value = user;
+  }
+
+  return {
+    userAuthenticated,
+    getUserAccessToken,
+    setUserAuthenticated,
+  }
+},
+{
+  persist: true,
 });

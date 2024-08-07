@@ -5,21 +5,14 @@ import SvgSprite from '@/components/shared/SvgSprite.vue';
 
 import Logo from './LogoMain.vue';
 import { useDisplay } from 'vuetify';
+import { authUrl } from '@/services/authorizatio_code_flow/authcode';
 
 const { mdAndUp } = useDisplay();
 const drawer = ref(false);
 
-const url = ref<string>(); // Define url as a ref
 
-const value: string = window.location.search;
-const params = new URLSearchParams(value);
-const ispValue = params.get('isp');
 
-if (ispValue !== null && parseInt(ispValue) === 1) {
-  url.value = 'https://1.envato.market/B0JAPW';
-} else {
-  url.value = 'https://1.envato.market/zNkqj6';
-}
+const url = ref<string>(authUrl);
 </script>
 
 <template>
@@ -47,11 +40,11 @@ if (ispValue !== null && parseInt(ispValue) === 1) {
           >
             <SvgSprite name="custom-document-2" style="width: 20px; height: 20px" />
           </v-btn>
-          <v-btn variant="flat" class="font-weight-medium ml-4" height="42px" color="success" rounded="md" :href="url" target="_">
+          <v-btn variant="flat" class="font-weight-medium ml-4" height="42px" color="success" rounded="md" :href="url">
             <template v-slot:prepend>
               <SvgSprite name="custom-link2" style="width: 20px; height: 20px" />
             </template>
-            Purchase Now
+            Login
           </v-btn>
         </template>
         <template v-else>

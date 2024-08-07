@@ -3,9 +3,12 @@ import { shallowRef } from 'vue';
 
 const languageDD = shallowRef([
   { title: 'English', subtext: 'UK', value: 'en' },
-  { title: 'français', subtext: 'French', value: 'fr' },
-  { title: 'Română', subtext: 'Romanian', value: 'ro' },
-  { title: '中国人', subtext: 'Chinese', value: 'zh' }
+  { title: 'Français', subtext: 'French', value: 'fr' },
+  { title: 'Pt Brasileiro', subtext: 'portugues', value: 'pt_br' },
+  { title: 'Español', subtext: 'Spanish', value: 'es' },
+  { title: 'српски', subtext: 'Serbian', value: 'sr' },
+  { title: '한국어', subtext: 'Korean', value: 'ko' },
+  { title: 'Filipino', subtext: 'Filipino', value: 'fil' },
 ]);
 </script>
 
