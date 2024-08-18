@@ -18,8 +18,16 @@ function changeTab(e: string) {
 </script>
 
 <template>
+  <v-alert color="error" variant="tonal" icon="false" rounded="md">
+                  <template v-slot:prepend>
+                    <SvgSprite name="custom-bug-fill" style="width: 20px; height: 20px" />
+                  </template>
+                  Error Text
+                </v-alert>
   <v-row class="mt-0">
-    <v-col cols="12">
+
+    <!-- it says how much your profile were filled out -->
+    <!--<v-col cols="12">
       <v-card class="profile-banner overflow-hidden" variant="flat" color="lightprimary" rounded="lg">
         <v-card-item class="pb-4 pt-2 px-6">
           <div class="d-flex justify-space-between align-center flex-wrap ga-4">
@@ -31,10 +39,12 @@ function changeTab(e: string) {
         <UserBackRight />
       </v-card>
     </v-col>
+    -->
+    
     <v-col cols="12" xl="3" md="4">
       <v-card variant="outlined" class="bg-surface" rounded="lg">
         <v-card-item>
-          <div class="text-right">
+          <!-- <div class="text-right">
             <v-menu class="rounded-md" elevation="24" rounded="md">
               <template v-slot:activator="{ props }">
                 <v-btn icon color="secondary" aria-label="menu" size="small" v-bind="props" variant="tonal" rounded="md">
@@ -50,20 +60,24 @@ function changeTab(e: string) {
                 </v-list-item>
               </v-list>
             </v-menu>
-          </div>
-          <UserDetails />
+          </div> -->
+
+          <!-- User details -->
+          <!-- <UserDetails /> -->
+
+
           <v-tabs v-model="tab" color="primary" hide-slider density="compact" direction="vertical">
             <v-tab value="one" selected-class="bg-lightprimary" rounded="md" hide-slider>
-              <SvgSprite name="custom-user-outline" class="v-icon--start" style="width: 18px; height: 18px" /> Personal information
+              <SvgSprite name="custom-user-outline" class="v-icon--start" style="width: 18px; height: 18px" /> {{$t('Personal Information')}}
             </v-tab>
             <v-tab value="two" selected-class="bg-lightprimary" rounded="md" hide-slider
-              ><SvgSprite name="custom-payment-outline" class="v-icon--start" style="width: 18px; height: 18px" /> Payment
+              ><SvgSprite name="custom-payment-outline" class="v-icon--start" style="width: 18px; height: 18px" /> {{ $t('Payment') }}
             </v-tab>
             <v-tab value="three" selected-class="bg-lightprimary" rounded="md" hide-slider
-              ><SvgSprite name="custom-lock-2" class="v-icon--start" style="width: 18px; height: 18px" /> Change password
+              ><SvgSprite name="custom-lock-2" class="v-icon--start" style="width: 18px; height: 18px" /> {{ $t('Change Password') }}
             </v-tab>
             <v-tab value="four" selected-class="bg-lightprimary" rounded="md" hide-slider
-              ><SvgSprite name="custom-setup-outline" class="v-icon--start" style="width: 18px; height: 18px" /> Settings
+              ><SvgSprite name="custom-setup-outline" class="v-icon--start" style="width: 18px; height: 18px" /> {{ $t('Settings') }}
             </v-tab>
           </v-tabs>
         </v-card-item>

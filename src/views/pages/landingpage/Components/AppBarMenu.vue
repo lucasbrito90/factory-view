@@ -5,12 +5,14 @@ import SvgSprite from '@/components/shared/SvgSprite.vue';
 
 import Logo from './LogoMain.vue';
 import { useDisplay } from 'vuetify';
-import { getAuthUrl } from '@/services/oauth';
+import { authUrl } from '@/services/authorizatio_code_flow/authcode';
 
 const { mdAndUp } = useDisplay();
 const drawer = ref(false);
 
-const url = ref<string>(getAuthUrl());
+
+
+const url = ref<string>(authUrl);
 </script>
 
 <template>

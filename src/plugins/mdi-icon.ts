@@ -6,7 +6,8 @@ import {
   mdiChevronDown,
   mdiHeart,
   mdiHeartOutline,
-  mdiHeartHalf
+  mdiHeartHalf,
+  mdiCamera
 } from '@mdi/js';
 
 export const icons = {
@@ -17,5 +18,6 @@ export const icons = {
   chevronDown: mdiChevronDown,
   heart: mdiHeart,
   heartOutline: mdiHeartOutline,
-  heartHalf: mdiHeartHalf
+  heartHalf: mdiHeartHalf,
+  camera: mdiCamera
 };

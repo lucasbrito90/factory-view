@@ -1,8 +1,8 @@
 import { acceptHMRUpdate, defineStore } from 'pinia';
 import { router } from '@/router';
-import { fetchWrapper } from '@/utils/helpers/fetch-wrapper';
 import { random } from 'lodash';
 import type { AuthResponse } from '@/services/oauth';
+import { get } from 'lodash';
 
 const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
 
@@ -14,14 +14,17 @@ export const useAuthStore = defineStore({
     // @ts-ignore
     user: null as AuthResponse | null,
     returnUrl: null,
-    state: crypto.randomUUID()
+    state: crypto.randomUUID(),
+    verifier: '',
+    codeChallenge: '',
   }),
   actions: {
     logout() {
       this.user = null;
       localStorage.removeItem('user');
       router.push('/auth/login1');
-    }
+    },
+    
   },
   persist: true
 });

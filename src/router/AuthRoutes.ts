@@ -30,11 +30,11 @@ const AuthRoutes = {
       path: '/auth/callback',
       component: () => import('@/views/pages/auth/Callback.vue')
     },
-    {
-      name: 'Login 2',
-      path: '/auth/login2',
-      component: () => import('@/views/authentication/auth2/LoginPage2.vue')
-    },
+    // {
+    //   name: 'Login 2',
+    //   path: '/auth/login2',
+    //   component: () => import('@/views/authentication/auth2/LoginPage2.vue')
+    // },
     {
       name: 'Register 2',
       path: '/auth/register2',
@@ -60,19 +60,19 @@ const AuthRoutes = {
       path: '/auth/code-verify2',
       component: () => import('@/views/authentication/auth2/CodeVerification2.vue')
     },
-    {
-      name: 'Authentication 3',
-      path: '/auth/login3',
-      component: () => import('@/views/authentication/auth3/AuthenticationPage3.vue')
-    },
-    {
-      name: 'Login',
-      path: '/auth/login1',
-      component: () => import('@/views/authentication/auth1/LoginPage1.vue')
-    },
+    // {
+    //   name: 'Authentication 3',
+    //   path: '/auth/login3',
+    //   component: () => import('@/views/authentication/auth3/AuthenticationPage3.vue')
+    // },
+    // {
+    //   name: 'Login',
+    //   path: '/auth/login1',
+    //   component: () => import('@/views/authentication/auth1/LoginPage1.vue')
+    // },
     {
       name: 'Register',
-      path: '/auth/register1',
+      path: '/auth/register',
       component: () => import('@/views/authentication/auth1/RegisterPage1.vue')
     },
     {
@@ -92,7 +92,7 @@ const AuthRoutes = {
     },
     {
       name: 'Code Verification',
-      path: '/auth/code-verify1',
+      path: '/auth/code-verify',
       component: () => import('@/views/authentication/auth1/CodeVerification1.vue')
     },
     {

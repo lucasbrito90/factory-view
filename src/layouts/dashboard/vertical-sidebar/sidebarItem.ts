@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export interface menu {
   header?: string;
   title?: string;
@@ -12,10 +14,124 @@ export interface menu {
   children?: menu[];
   disabled?: boolean;
   type?: string;
+  role?: string;
+  permission?: string;
   subCaption?: string;
 }
 
+export async function getMenu(): Promise<menu[]> {
+  const response = await axios.get(`${import.meta.env.VITE_AUTH_APIa}api/menu`);
+  return response.data;
+}
+
 const sidebarItem: menu[] = [
+  { header: 'Customers' },
+  {
+    title: 'Customer',
+    icon: 'custom-users',
+    to: '/customer/',
+    children: [
+      {
+        title: 'Add Customer',
+        to: '/customer/addcustomer'
+      },
+      {
+        title: 'Customer List',
+        to: '/customer/customerlist'
+      },
+      {
+        title: 'Create Invoice',
+        to: '/app/customer/create-invoice'
+      },
+    ]
+  },
+  {
+    title: 'Projects',
+    icon: 'custom-document',
+    to: '/projects/',
+    children: [
+      {
+        title: 'Add Project',
+        to: '/projects/addproject'
+      },
+      {
+        title: 'Project List',
+        to: '/projects/projectlist'
+      },
+      {
+        title: 'Project Details',
+        to: '/projects/projectdetails'
+      },
+    ]
+  },
+  {
+    title: 'Users',
+    icon: 'custom-user-square',
+    to: '/app/user',
+    role: 'enrollment',
+    children: [
+      {
+        title: 'Social Profile',
+        to: '/app/user/social/posts'
+      },
+      {
+        title: 'Account Profile',
+        to: '/app/user/account-profile',
+        children: [
+          {
+            title: 'Profile 01',
+            to: '/app/user/account-profile/profile1'
+          },
+          {
+            title: 'Profile 02',
+            to: '/app/user/account-profile/profile2'
+          },
+          {
+            title: 'Profile 03',
+            to: '/app/user/account-profile/profile3'
+          }
+        ]
+      },
+      {
+        title: 'User Profile',
+        to: '/app/user/userprofile',
+        permission: 'edit user'
+      },
+      {
+        title: 'Cards',
+        to: '/app/user/card',
+        children: [
+          {
+            title: 'Style 01',
+            to: '/app/user/card/card1'
+          },
+          {
+            title: 'Style 02',
+            to: '/app/user/card/card2'
+          },
+          {
+            title: 'Style 03',
+            to: '/app/user/card/card3'
+          }
+        ]
+      },
+      {
+        title: 'List',
+        to: '/app/user/list',
+        children: [
+          {
+            title: 'Style 01',
+            to: '/app/user/list1'
+          },
+          {
+            title: 'Style 02',
+            to: '/app/user/list2'
+          }
+        ]
+      }
+    ]
+  },
+
   { header: 'Dashboard' },
   {
     title: 'Dashboard',
@@ -132,69 +248,27 @@ const sidebarItem: menu[] = [
       }
     ]
   },
+  {header: 'Orders'},
   {
-    title: 'Users',
-    icon: 'custom-user-square',
-    to: '/app/user',
+    title: 'Orders',
+    icon: 'custom-document',
     children: [
       {
-        title: 'Social Profile',
-        to: '/app/user/social/posts'
+        title: 'Order Details',
+        to: '/app/customer/order-details'
       },
       {
-        title: 'Account Profile',
-        to: '/app/user/account-profile',
-        children: [
-          {
-            title: 'Profile 01',
-            to: '/app/user/account-profile/profile1'
-          },
-          {
-            title: 'Profile 02',
-            to: '/app/user/account-profile/profile2'
-          },
-          {
-            title: 'Profile 03',
-            to: '/app/user/account-profile/profile3'
-          }
-        ]
+        title: 'Order List',
+        to: '/customer/orderlist'
       },
       {
-        title: 'User Profile',
-        to: '/app/user/userprofile'
+        title: 'Product List',
+        to: '/customer/productlist'
       },
       {
-        title: 'Cards',
-        to: '/app/user/card',
-        children: [
-          {
-            title: 'Style 01',
-            to: '/app/user/card/card1'
-          },
-          {
-            title: 'Style 02',
-            to: '/app/user/card/card2'
-          },
-          {
-            title: 'Style 03',
-            to: '/app/user/card/card3'
-          }
-        ]
+        title: 'Product Review',
+        to: '/customer/productreview'
       },
-      {
-        title: 'List',
-        to: '/app/user/list',
-        children: [
-          {
-            title: 'Style 01',
-            to: '/app/user/list1'
-          },
-          {
-            title: 'Style 02',
-            to: '/app/user/list2'
-          }
-        ]
-      }
     ]
   },
   {

@@ -5,7 +5,8 @@ const languageDD = shallowRef([
   { title: 'English', subtext: 'UK', value: 'en' },
   { title: 'français', subtext: 'French', value: 'fr' },
   { title: 'Română', subtext: 'Romanian', value: 'ro' },
-  { title: '中国人', subtext: 'Chinese', value: 'zh' }
+  { title: '中国人', subtext: 'Chinese', value: 'zh' },
+  { title: 'Pt Brasileiro', subtext: 'portugues', value: 'pt_br' },
 ]);
 </script>
 

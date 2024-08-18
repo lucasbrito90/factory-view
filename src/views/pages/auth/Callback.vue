@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getToken } from '@/services/oauth';
+import { getToken, type AuthResponse } from '@/services/authorizatio_code_flow/authcode';
 import { useAuthStore } from '@/stores/auth';
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -13,7 +13,7 @@ onMounted(async () => {
     code.value = route.query.code as string;
 
     if (code.value) {
-        const response = await getToken(code.value);
+        const response: AuthResponse = await getToken(code.value);
         authStore.user = response;
 
         router.push({ name: 'Default' });
