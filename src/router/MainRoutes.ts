@@ -174,7 +174,8 @@ const MainRoutes = {
     {
       name: 'Chats',
       path: '/app/chats',
-      component: () => import('@/views/apps/chats/ChatPage.vue')
+      component: () => import('@/views/apps/chats/ChatPage.vue'),
+      meta: {permission: "admin"}
     },
     {
       name: 'Invoice dashboard',

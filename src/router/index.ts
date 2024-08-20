@@ -4,6 +4,7 @@ import AuthRoutes from './AuthRoutes';
 import { useAuthStore, type AuthStore } from '@/stores/auth';
 import ComponentRoutes from './ComponentRoutes';
 import { useUIStore } from '@/stores/ui';
+import authMiddleware from './middlewares/UserAuthenticatedHasPermission';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,21 +19,7 @@ export const router = createRouter({
   ]
 })
 
-router.beforeEach(async (to, from, next) => {
-  // redirect to login page if not logged in and trying to access a restricted page
-  const publicPages = ['/auth/login1'];
-  const authRequired = !publicPages.includes(to.path);
-  const auth: AuthStore = useAuthStore();
-
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (authRequired && !auth.user) {
-      auth.returnUrl = to.fullPath;
-      return next('/auth/login1');
-    } else next();
-  } else {
-    next();
-  }
-});
+router.beforeEach(authMiddleware);
 
 router.beforeEach(() => {
   const uiStore = useUIStore();

@@ -20,7 +20,8 @@ export interface menu {
 }
 
 export async function getMenu(): Promise<menu[]> {
-  const response = await axios.get(`${import.meta.env.VITE_AUTH_APIa}api/menu`);
+  const response = await axios
+      .get(`${import.meta.env.VITE_AUTH_API}api/menu`);
   return response.data;
 }
 
