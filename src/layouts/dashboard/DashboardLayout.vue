@@ -7,8 +7,11 @@ import HorizontalHeader from './horizontal-header/HorizontalHeader.vue';
 import HorizontalSidebar from './horizontal-sidebar/HorizontalSidebar.vue';
 import Customizer from './customizer/CustomizerPanel.vue';
 import FooterPanel from './footer/FooterPanel.vue';
+import BasicAlert from '@/components/shared/alerts/BasicAlert.vue';
 import { useCustomizerStore } from '../../stores/customizer';
+import { useErrorStore } from '@/stores/error';
 const customizer = useCustomizerStore();
+const useError = useErrorStore();
 </script>
 
 <template>
@@ -32,6 +35,10 @@ const customizer = useCustomizerStore();
       <v-main class="page-wrapper">
         <v-container fluid>
           <div :class="customizer.boxed ? 'maxWidth' : ''">
+
+
+            <BasicAlert type="error" :text="error" v-for="(error, index) in useError.errors" :key="index" />
+
             <!-- Loader start -->
             <LoaderWrapper />
             <!-- Loader end -->

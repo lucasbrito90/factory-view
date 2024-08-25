@@ -6,7 +6,15 @@ import avatar from "@/assets/images/profile/user-profile-1.png";
 import { registerUser } from '@/services/userapi';
 import { date } from 'yup';
 import { getAllRolesAndPermissions } from '@/services/policies/policies';
+import axios from 'axios';
+import { useGoTo } from 'vuetify';
 
+
+const scrollBar = {
+  number: 500,
+  offset: 0,
+  easing: 'easeInOutCubic',
+}
 //months
 const items = ref([
   'January',
@@ -99,8 +107,8 @@ const items2 = ref([
 const isUpdating = ref(false);
 
 const permissions: Record<string, string> = await getAllRolesAndPermissions();
+const goTo = useGoTo();
 
-const items4: Ref<string[]> = ref([]);
 const firstname: Ref<string> = ref('');
 const lastname: Ref<string> =  ref('');
 const email: Ref<string> = ref('');
@@ -109,16 +117,11 @@ const month: Ref<string> = ref('');
 const year: Ref<string> = ref('');
 const countryCode: Ref<string> = ref('');
 const phoneNumber: Ref<string> = ref('');
-const gender: Ref<string> = ref('');
-const pronoun: Ref<string> = ref('');
 const address: Ref<string> = ref('');
 const country: Ref<string> = ref('');
 const city: Ref<string> = ref('');
-const note: Ref<string> = ref('');
 const sector: Ref<string> = ref('');
 const role: Ref<string> = ref('');
-const image: Ref<File | null> = ref(null);
-const imageURL: Ref<string> = ref(avatar);
 
 const fullname = computed(() => `${firstname.value} ${lastname.value}`);
 const fullPhoneNumber = computed(() => `${countryCode.value} ${phoneNumber.value}`);
@@ -153,21 +156,11 @@ const cityRules = ref([
   (v: string) => !!v || 'City is required'
 ]);
 
-const imageRules = ref([
-  (v: FileList) => !v || !v.length || v[0].size < 2000000 || 'Avatar size should be less than 2 MB!'
-]);
-
 const phoneNumberRules = ref([
   //only numbers
   (v: string) => /^[0-9]*$/.test(v) || 'Only numbers are allowed',  
 ]);
 
-
-function onPictureChange(e: Event) {
-  const file: File = (e.target as HTMLInputElement).files![0]
-  imageURL.value = URL.createObjectURL(file);
-  console.log(imageURL.value);
-}
 
 function submit(){
 
@@ -180,17 +173,25 @@ function submit(){
       email: email.value,
       date_of_birth: fullDateOfBirth.value,
       phone_number: fullPhoneNumber.value,
-      gender: gender.value,
-      pronoun: pronoun.value,
       address: address.value,
       country: country.value,
       city: city.value,
-      note: note.value,
       sector: sector.value,
       role: role.value,
-      image: image.value || undefined 
     });
+
+
   }
+
+  goTo('#app', scrollBar);
+
+  axios.post('https://jsonplacehdoldser.typicode.com/posts', {
+    first_name: firstname.value,
+    last_name: lastname.value,
+    email: email.value,
+    date_of_birth: fullDateOfBirth.value,
+    phone_number: fullPhoneNumber.value,
+  })
 
 }
   
@@ -198,58 +199,12 @@ function submit(){
 
 <template>
   <v-card class="bg-surface" variant="outlined" rounded="lg">
-    <v-row>
-      <v-col cols="12" md="12">
-        <div class="text-center py-4">
-            <v-avatar size="124" variant="outlined" color="primary" class="dashed bg-lightprimary">
-              <v-img
-                class="mx-auto"
-                width="124"
-                height="124"
-                :lazy-src="imageURL"
-                :src="imageURL"
-              >
-                <template v-slot:placeholder>
-                  <div class="d-flex align-center justify-center fill-height">
-                    <v-progress-circular
-                      color="grey-lighten-4"
-                      indeterminate
-                    ></v-progress-circular>
-                  </div>
-                </template>
-              </v-img>
-
-              <!-- <img :src="imageURL" width="124" alt="profile" /> -->
-            </v-avatar>
-            <h5 class="text-h5 pt-5 mb-1">{{ fullname }}</h5>
-            <p class="text-h6 text-lightText">{{ $t("PersonalInformation.Picture") }}</p>
-      </div>
-      </v-col>
-    </v-row>
     <h5 class="text-h5 mb-0 pa-5 pb-4">{{ $t("Personal Information") }}</h5>
     <v-divider></v-divider>
 
     <v-form ref="Regform" fast-fail class="loginForm">
 
     <v-card-item>
-      <v-row>
-        <v-col cols="12" md="12">
-          <v-label class="mb-2">{{ $t("PersonalInformation.First Name") }}</v-label>
-          <v-file-input
-            v-model="image"
-            :rules="imageRules" 
-            accept="image/*"
-            variant="outlined"
-            density="comfortable"
-            prepend-icon="$camera"
-            @change="onPictureChange"
-            counter
-            multiple
-            show-size
-            hide-details="auto"
-          ></v-file-input>
-        </v-col>
-      </v-row>
       <v-row>
         <v-col cols="12" md="6">
           <v-label class="mb-2">{{ $t("PersonalInformation.First Name") }}</v-label>
@@ -376,28 +331,6 @@ function submit(){
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" md="6">
-          <v-label class="mb-2"> {{ $t("PersonalInformation.Gender") }}</v-label>
-          <v-text-field
-            single-line
-            density="comfortable"
-            aria-label="designation"
-            variant="outlined"
-            hide-details="auto"
-            v-model="gender"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-label class="mb-2"> {{ $t("PersonalInformation.Prounoun") }}</v-label>
-          <v-text-field
-            single-line
-            density="comfortable"
-            aria-label="designation"
-            variant="outlined"
-            hide-details="auto"
-            v-model="pronoun"
-          ></v-text-field>
-        </v-col>
       </v-row>
     </v-card-item>
     <v-card-item class="pa-0">
@@ -503,19 +436,6 @@ function submit(){
     <v-card-item class="pa-0">
       <h5 class="text-h5 mb-0 pa-5 pb-4">{{ $t("PersonalInformation.Professional Information") }}</h5>
       <v-divider></v-divider>
-      <v-row class="pa-5">
-        <v-col cols="12">
-          <v-label class="mb-2">{{ $t("PersonalInformation.Note") }}</v-label>
-          <v-textarea
-            aria-label="note"
-            variant="outlined"
-            density="comfortable"
-            hide-details="auto"
-            single-line
-            v-model="note"
-          ></v-textarea>
-        </v-col>
-      </v-row>
       <v-row cols="12" md="6"  class="pa-5">
         <v-col cols="12" md="6">
           <v-label class="mb-2">{{ $t("PersonalInformation.Sector") }}</v-label>

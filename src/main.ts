@@ -46,7 +46,7 @@ import Vue3EasyDataTable from 'vue3-easy-data-table';
 import { createI18n } from 'vue-i18n';
 import messages from '@/utils/locales/messages';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-import './axios';
+import axios from 'axios';
 
 const i18n = createI18n({
   locale: 'en',
@@ -73,3 +73,19 @@ app.use(i18n);
 app.directive('maska', vMaska);
 app.use(VueApexCharts);
 app.use(vuetify).mount('#app');
+
+import './axios';
+import { useErrorStore } from './stores/error';
+
+axios.interceptors.response.use(response => {
+  return response;
+}, error => {
+
+  const useError = useErrorStore();
+
+  if (error.response && error.response.data) {
+      useError.addError(error.response.data.message);
+  }
+
+  return Promise.reject(error);
+});

@@ -18,12 +18,6 @@ function changeTab(e: string) {
 </script>
 
 <template>
-  <v-alert color="error" variant="tonal" icon="false" rounded="md">
-                  <template v-slot:prepend>
-                    <SvgSprite name="custom-bug-fill" style="width: 20px; height: 20px" />
-                  </template>
-                  Error Text
-                </v-alert>
   <v-row class="mt-0">
 
     <!-- it says how much your profile were filled out -->
@@ -70,7 +64,7 @@ function changeTab(e: string) {
             <v-tab value="one" selected-class="bg-lightprimary" rounded="md" hide-slider>
               <SvgSprite name="custom-user-outline" class="v-icon--start" style="width: 18px; height: 18px" /> {{$t('Personal Information')}}
             </v-tab>
-            <v-tab value="two" selected-class="bg-lightprimary" rounded="md" hide-slider
+            <!-- <v-tab value="two" selected-class="bg-lightprimary" rounded="md" hide-slider
               ><SvgSprite name="custom-payment-outline" class="v-icon--start" style="width: 18px; height: 18px" /> {{ $t('Payment') }}
             </v-tab>
             <v-tab value="three" selected-class="bg-lightprimary" rounded="md" hide-slider
@@ -78,7 +72,7 @@ function changeTab(e: string) {
             </v-tab>
             <v-tab value="four" selected-class="bg-lightprimary" rounded="md" hide-slider
               ><SvgSprite name="custom-setup-outline" class="v-icon--start" style="width: 18px; height: 18px" /> {{ $t('Settings') }}
-            </v-tab>
+            </v-tab> -->
           </v-tabs>
         </v-card-item>
       </v-card>

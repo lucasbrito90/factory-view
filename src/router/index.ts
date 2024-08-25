@@ -5,6 +5,7 @@ import { useAuthStore, type AuthStore } from '@/stores/auth';
 import ComponentRoutes from './ComponentRoutes';
 import { useUIStore } from '@/stores/ui';
 import authMiddleware from './middlewares/UserAuthenticatedHasPermission';
+import axios from 'axios';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
