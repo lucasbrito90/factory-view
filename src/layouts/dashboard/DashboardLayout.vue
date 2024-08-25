@@ -1,17 +1,17 @@
 <script setup lang="ts">
+import Alerts from '@/components/shared/alerts/ComponentsAlert.vue';
 import { RouterView } from 'vue-router';
-import LoaderWrapper from './LoaderWrapper.vue';
-import VerticalSidebarVue from './vertical-sidebar/VerticalSidebar.vue';
-import VerticalHeaderVue from './vertical-header/VerticalHeader.vue';
-import HorizontalHeader from './horizontal-header/HorizontalHeader.vue';
-import HorizontalSidebar from './horizontal-sidebar/HorizontalSidebar.vue';
+import { useCustomizerStore } from '../../stores/customizer';
 import Customizer from './customizer/CustomizerPanel.vue';
 import FooterPanel from './footer/FooterPanel.vue';
-import BasicAlert from '@/components/shared/alerts/BasicAlert.vue';
-import { useCustomizerStore } from '../../stores/customizer';
-import { useErrorStore } from '@/stores/error';
+import HorizontalHeader from './horizontal-header/HorizontalHeader.vue';
+import HorizontalSidebar from './horizontal-sidebar/HorizontalSidebar.vue';
+import LoaderWrapper from './LoaderWrapper.vue';
+import VerticalHeaderVue from './vertical-header/VerticalHeader.vue';
+import VerticalSidebarVue from './vertical-sidebar/VerticalSidebar.vue';
 const customizer = useCustomizerStore();
-const useError = useErrorStore();
+
+
 </script>
 
 <template>
@@ -36,8 +36,7 @@ const useError = useErrorStore();
         <v-container fluid>
           <div :class="customizer.boxed ? 'maxWidth' : ''">
 
-
-            <BasicAlert type="error" :text="error" v-for="(error, index) in useError.errors" :key="index" />
+            <Alerts />
 
             <!-- Loader start -->
             <LoaderWrapper />

@@ -1,19 +1,11 @@
 // implements the Authorization Code Flow
 
+import type { AuthResponse } from "@/interfaces/auth";
 import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
 
 const authStore = useAuthStore();
 export const authUrl = await getAuthUrl();
-
-export interface AuthResponse {
-    access_token: string;
-    token_type: string;
-    expires_in: number;
-    refresh_token: string;
-    scope?: string;
-    permissions?: string[];
-}
 
 export async function getAuthUrl() {
 

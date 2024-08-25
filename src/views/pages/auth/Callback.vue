@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { getToken, getUserPermissions, type AuthResponse } from '@/services/authorizatio_code_flow/authcode';
+
+import type { AuthResponse } from '@/interfaces/auth';
+import { getToken, getUserPermissions } from '@/services/authorizatio_code_flow/authcode';
 import { useAuthStore } from '@/stores/auth';
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const code = ref<string | null>(null);

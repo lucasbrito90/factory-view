@@ -11,13 +11,3 @@ axios.interceptors.request.use(config => {
 }, error => {
     return Promise.reject(error);
 });
-
-// Get all errors from the response
-// axios.interceptors.response.use(response => {
-//     return response;
-// }, error => {
-//     if (error.response && error.response.data) {
-//         console.log(error.response.data.message);
-//     }
-//     return Promise.reject(error);
-// });

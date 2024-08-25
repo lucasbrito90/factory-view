@@ -27,7 +27,12 @@ const props = defineProps<{
 </script>
 
 <template>
-    <v-alert :color="alert[props.type].color" :variant="alert[props.type].variant" class="mb-4" :icon="alert[props.type].icon" :rounded="alert[props.type].rounded">
+    <v-alert 
+    :color="alert[props.type].color" 
+    :variant="alert[props.type].variant" 
+    class="mb-4" 
+    :icon="alert[props.type].icon" 
+    :rounded="alert[props.type].rounded">
         <template v-slot:prepend>
             <SvgSprite :name="alert[props.type].name" style="width: 20px; height: 20px" />
         </template>

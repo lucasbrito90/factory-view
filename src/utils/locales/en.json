@@ -49,6 +49,8 @@
       "Sector": "Sector",
       "Designation": "Designation",
       "Role": "Role",
+      "Roles": "Roles",
+      "Roles and Permissions": "Roles and Permissions",
       "Gender": "Gender",
       "Prounoun": "Pronoun",
       "Current Password": "Current Password",

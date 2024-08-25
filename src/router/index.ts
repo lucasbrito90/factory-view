@@ -1,11 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import MainRoutes from './MainRoutes';
-import AuthRoutes from './AuthRoutes';
-import { useAuthStore, type AuthStore } from '@/stores/auth';
-import ComponentRoutes from './ComponentRoutes';
 import { useUIStore } from '@/stores/ui';
+import { createRouter, createWebHistory } from 'vue-router';
+import AuthRoutes from './AuthRoutes';
+import ComponentRoutes from './ComponentRoutes';
+import MainRoutes from './MainRoutes';
 import authMiddleware from './middlewares/UserAuthenticatedHasPermission';
-import axios from 'axios';
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
