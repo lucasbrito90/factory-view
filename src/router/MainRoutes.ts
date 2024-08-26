@@ -205,7 +205,7 @@ const MainRoutes = {
     {
       name: 'UserProfile',
       path: '/app/user/userprofile',
-      component: () => import('@/views/apps/users/user-profile/UserProfilePage.vue')
+      component: () => import('@/context/enrollment/views/app/users/UserProfilePage.vue')
     },
     {
       name: 'SocialProfile',
