@@ -15,3 +15,10 @@ export interface AddPermission {
     email: string;
     permissions: string[];
 }
+
+export interface SetUsersNotification {
+    email: string;
+    email_notifications: boolean;
+    sms_notifications: boolean;
+    web_notifications: boolean;
+}

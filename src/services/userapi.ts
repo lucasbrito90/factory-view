@@ -1,4 +1,4 @@
-import type { AddPermission, RegisterUser } from '@/interfaces/user';
+import type { AddPermission, RegisterUser, SetUsersNotification } from '@/interfaces/user';
 import axios from 'axios';
 
 const authUrl =  import.meta.env.VITE_AUTH_API;
@@ -12,6 +12,13 @@ export async function registerUser(user: RegisterUser): Promise<number> {
 
 export async function addPermission(params: AddPermission): Promise<number> {
     const response = await axios.post(`${authUrl}api/user/permissions`,  params)
+
+    return response.status;
+}
+
+export async function setUsersNotification(params: SetUsersNotification): Promise<number> {
+    console.log(params)
+    const response = await axios.post(`${authUrl}api/user/notifications`, params)
 
     return response.status;
 }

@@ -4,6 +4,7 @@ import { ref, type Ref } from 'vue';
 
 import InformationTab from './InformationTab.vue';
 import RolesTab from './RolesTab.vue';
+import SettingTab from './SettingTab.vue';
 
 const tab = ref('one');
 
@@ -27,16 +28,18 @@ function setEmail(email: string) {
               {{ $t('Personal Information') }}
             </v-tab>
             <v-tab value="two" selected-class="bg-lightprimary" rounded="md" hide-slider v-if="userEmail">
-              >
-              <SvgSprite name="custom-payment-outline" class="v-icon--start" style="width: 18px; height: 18px" /> {{
-                $t('Payment') }}
+              
+              <SvgSprite name="custom-edit-outline" class="v-icon--start" style="width: 18px; height: 18px" /> {{
+                $t('PersonalInformation.Roles and Permissions') }}
             </v-tab>
-            <!-- <v-tab value="three" selected-class="bg-lightprimary" rounded="md" hide-slider
+<!-- 
+            <v-tab value="three" selected-class="bg-lightprimary" rounded="md" hide-slider
               ><SvgSprite name="custom-lock-2" class="v-icon--start" style="width: 18px; height: 18px" /> {{ $t('Change Password') }}
-            </v-tab>
-            <v-tab value="four" selected-class="bg-lightprimary" rounded="md" hide-slider
-              ><SvgSprite name="custom-setup-outline" class="v-icon--start" style="width: 18px; height: 18px" /> {{ $t('Settings') }}
             </v-tab> -->
+
+            <v-tab value="four" selected-class="bg-lightprimary" rounded="md" hide-slider  v-if="userEmail"
+              ><SvgSprite name="custom-setup-outline" class="v-icon--start" style="width: 18px; height: 18px" /> {{ $t('Settings') }}
+            </v-tab>
           </v-tabs>
         </v-card-item>
       </v-card>
@@ -51,13 +54,13 @@ function setEmail(email: string) {
           <RolesTab :email="userEmail" v-if="userEmail" />
         </v-window-item>
 
-        <!--<v-window-item value="three">
+        <!-- <v-window-item value="three">
           <ChangePasswordTab />
-        </v-window-item>
+        </v-window-item> -->
 
         <v-window-item value="four">
-          <SettingTab />
-        </v-window-item> -->
+          <SettingTab :email="userEmail" v-if="userEmail" />
+        </v-window-item>
       </v-window>
     </v-col>
   </v-row>
