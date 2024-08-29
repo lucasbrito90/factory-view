@@ -39,6 +39,7 @@
   "Create User Profile": "Create User Profile",
   "Title": "Professional Information",
   "PersonalInformation": {
+    "Full Name": "Full Name",
     "First Name": "First Name",
     "Last Name": "Last Name",
     "Email": "Email",
@@ -78,5 +79,10 @@
     "Professional Information": "Professional Information"
   },
   "Content": "You will be notified when customer order any product",
-  "Settings updated successfully": "Settings updated successfully"
+  "Settings updated successfully": "Settings updated successfully",
+  "Progress": "Progress",
+  "Edit": "Edit",
+  "Block": "Block",
+  "Unblock": "Unblock",
+  "User List": "User List"
 }

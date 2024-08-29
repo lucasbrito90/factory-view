@@ -41,7 +41,7 @@ import { vMaska } from 'maska';
 // print
 import print from 'vue3-print-nb';
 // Table
-// import Vue3EasyDataTable from 'vue3-easy-data-table';
+import Vue3EasyDataTable from 'vue3-easy-data-table';
 //i18
 import messages from '@/utils/locales/messages';
 import axios from 'axios';
@@ -63,7 +63,7 @@ const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 
 app.use(router);
-// app.component('EasyDataTable', Vue3EasyDataTable);
+app.component('EasyDataTable', Vue3EasyDataTable);
 app.use(PerfectScrollbarPlugin);
 app.component('SvgSprite', SvgSprite);
 app.use(pinia);

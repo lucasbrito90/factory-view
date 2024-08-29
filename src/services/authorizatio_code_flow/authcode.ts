@@ -1,6 +1,6 @@
 // implements the Authorization Code Flow
 
-import type { AuthResponse } from "@/interfaces/auth";
+import type { AuthResponse } from "@/shared/interfaces/auth";
 import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
 

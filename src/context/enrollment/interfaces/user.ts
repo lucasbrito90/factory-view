@@ -22,3 +22,27 @@ export interface SetUsersNotification {
     sms_notifications: boolean;
     web_notifications: boolean;
 }
+
+export interface User {
+    address?: string;
+    city?: string;
+    country?: string;
+    created_at?: string;
+    date_of_birth?: string;
+    email: string;
+    email_notifications?: boolean;
+    email_verified_at?: string;
+    id: number;
+    language?: string;
+    name?: string;
+    phone_number?: string;
+    postal_code?: string;
+    role?: string;
+    sector?: string;
+    sms_notifications?: boolean;
+    state_province?: string;
+    updated_at?: string;
+    avatar?: string;
+    completion_percentage?: number;
+    active?: boolean;
+}

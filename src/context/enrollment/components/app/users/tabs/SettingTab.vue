@@ -73,7 +73,6 @@ async function submit() {
           <v-list-item-subtitle class="text-body-2 text-lightText" style="opacity: 1">
             {{ item.content}}</v-list-item-subtitle>
           <template v-slot:append>
-            {{ item.value }}
             <v-switch color="primary" density="compact" aria-label="switch" class="ml-3" v-model="item.value" inset
               hide-details></v-switch>
           </template>

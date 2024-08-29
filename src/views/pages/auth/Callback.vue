@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
-import type { AuthResponse } from '@/interfaces/auth';
 import { getToken, getUserPermissions } from '@/services/authorizatio_code_flow/authcode';
+import type { AuthResponse } from '@/shared/interfaces/auth';
 import { useAuthStore } from '@/stores/auth';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';

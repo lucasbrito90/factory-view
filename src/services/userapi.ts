@@ -1,4 +1,4 @@
-import type { AddPermission, RegisterUser, SetUsersNotification } from '@/interfaces/user';
+import type { AddPermission, RegisterUser, SetUsersNotification } from '@/shared/interfaces/user';
 import axios from 'axios';
 
 const authUrl =  import.meta.env.VITE_AUTH_API;
