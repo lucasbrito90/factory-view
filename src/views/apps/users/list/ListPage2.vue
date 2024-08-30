@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import user1 from '@/assets/images/users/avatar-1.png';
-import user2 from '@/assets/images/users/avatar-2.png';
-import user3 from '@/assets/images/users/avatar-3.png';
 import { computed, onMounted, ref, type Ref } from 'vue';
 // common components
 import SvgSprite from '@/components/shared/SvgSprite.vue';
@@ -9,6 +6,7 @@ import UiParentCard from '@/components/shared/UiParentCard.vue';
 import type { User } from '@/context/enrollment/interfaces/user';
 import { activeUser, deactiveUser, listUsers } from '@/context/enrollment/services/userapi';
 import type { Pagination } from '@/shared/interfaces/Pagination';
+import { useRouter, type Router } from 'vue-router';
 
 const users: Ref<Pagination<User> | null> = ref(null);
 const limit: Ref<number> = ref(5);
@@ -17,6 +15,7 @@ const name: Ref<string> = ref('');
 const email: Ref<string> = ref('');
 const role: Ref<string> = ref('');
 const sector: Ref<string> = ref('');
+const router: Router = useRouter();
 
 const usersData = async () => {
   users.value = await listUsers({
@@ -52,7 +51,7 @@ const search = async () => {
           <v-col cols="3">
             <v-label class="mb-2">{{ $t("PersonalInformation.Full Name") }}</v-label>
             <v-text-field color="primary" hide-details width="200" variant="outlined" density="default"
-              persistent-placeholder placeholder="name" v-model="name" class="mt-sm-0 mt-2 w-100" @keyup.enter="search">
+              persistent-placeholder placeholder="name" v-model="name" class="mt-sm-0 mt-2 w-100" @update:modelValue="search">
               <template v-slot:prepend-inner>
                 <SvgSprite name="custom-user-bold" class="text-lightText" style="width: 16px; height: 16px" />
               </template>
@@ -63,7 +62,7 @@ const search = async () => {
             <v-label class="mb-2">{{ $t("PersonalInformation.Email") }}</v-label>
             <v-text-field color="primary" hide-details width="200" variant="outlined" density="default"
               persistent-placeholder placeholder="email" v-model="email" class="mt-sm-0 mt-2 w-100"
-              @keyup.enter="search">
+              @update:modelValue="search">
               <template v-slot:prepend-inner>
                 <SvgSprite name="custom-sms" class="text-lightText" style="width: 16px; height: 16px" />
               </template>
@@ -73,7 +72,7 @@ const search = async () => {
           <v-col cols="3">
             <v-label class="mb-2">{{ $t("PersonalInformation.Role") }}</v-label>
             <v-text-field color="primary" hide-details width="200" variant="outlined" density="default"
-              persistent-placeholder placeholder="role" v-model="role" class="mt-sm-0 mt-2 w-100" @keyup.enter="search">
+              persistent-placeholder placeholder="role" v-model="role" class="mt-sm-0 mt-2 w-100" @update:modelValue="search">
               <template v-slot:prepend-inner>
                 <SvgSprite name="custom-document-text" class="text-lightText" style="width: 16px; height: 16px" />
               </template>
@@ -84,7 +83,7 @@ const search = async () => {
             <v-label class="mb-2">{{ $t("PersonalInformation.Sector") }}</v-label>
             <v-text-field color="primary" hide-details width="200" variant="outlined" density="default"
               persistent-placeholder placeholder="sector" v-model="sector" class="mt-sm-0 mt-2 w-100"
-              @keyup.enter="search">
+              @update:modelValue="search">
               <template v-slot:prepend-inner>
                 <SvgSprite name="custom-search" class="text-lightText" style="width: 16px; height: 16px" />
               </template>
@@ -123,7 +122,7 @@ const search = async () => {
           <v-col md="2" sm="3" cols="6">
             <small class="font-weight-bold">{{ $t("PersonalInformation.Language") }}</small>
             <h5 class="text-h6 mb-2">{{ card.language }}</h5>
-            <div class="avatarBox">
+            <!-- <div class="avatarBox">
               <v-avatar variant="flat" size="small">
                 <v-img :src="user1" alt="John"></v-img>
               </v-avatar>
@@ -136,7 +135,7 @@ const search = async () => {
               <v-avatar color="lightsecondary" variant="flat" size="small">
                 <span class="text-h5">2</span>
               </v-avatar>
-            </div>
+            </div> -->
           </v-col>
           <v-col md="5" sm="6" cols="12">
             <div class="d-flex align-center ga-4 mb-5">
@@ -147,7 +146,13 @@ const search = async () => {
             </div>
             <v-row>
               <v-col col="6">
-                <v-btn color="secondary" variant="outlined" rounded="md" block size="small">
+                <v-btn 
+                  color="secondary" 
+                  variant="outlined" 
+                  rounded="md" 
+                  block 
+                  size="small"
+                  @click="router.push({path: `/app/user/edit/${card.email}`})">
                   <SvgSprite name="custom-edit-outline" class="mr-2" style="width: 16px; height: 16px" />
                   {{ $t("Edit") }}
                 </v-btn>
@@ -185,14 +190,14 @@ const search = async () => {
               @update:model-value="usersData">
             </v-pagination>
           </v-col>
-          <!-- adicione um campo de auto complete com os valores de 5, 10 e 15 e vincule com a propriedade limit-->
+
           <v-col cols="2" >
           <v-autocomplete 
               v-model="limit" 
               :items="[5, 10, 15]" 
               color="primary"
               variant="outlined" hide-details="auto" density="default"
-              single-line clearable
+              single-line
               @update:modelValue="usersData"
               ></v-autocomplete>
             </v-col>

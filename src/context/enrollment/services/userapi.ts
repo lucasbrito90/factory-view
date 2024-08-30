@@ -66,3 +66,21 @@ export async function deactiveUser(email: string): Promise<number> {
 
     return response.status;
 }
+
+export async function getUserByEmail(email: string): Promise<User> {
+    const response = await axios.post(`${authUrl}api/user/get`, { email })
+
+    return response.data;
+}
+
+export async function updateUser(user: User): Promise<number> {
+    const response = await axios.post(`${authUrl}api/user/update`, user)
+
+    return response.status;
+}
+
+export async function getUserPermissions(email: string): Promise<string[]> {
+    const response = await axios.post(`${authUrl}api/user/permissions/get`, { email })
+
+    return response.data;
+}

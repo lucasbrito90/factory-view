@@ -30,7 +30,7 @@ export interface User {
     created_at?: string;
     date_of_birth?: string;
     email: string;
-    email_notifications?: boolean;
+    email_notifications?: number;
     email_verified_at?: string;
     id: number;
     language?: string;
@@ -39,10 +39,11 @@ export interface User {
     postal_code?: string;
     role?: string;
     sector?: string;
-    sms_notifications?: boolean;
+    sms_notifications?: number;
     state_province?: string;
     updated_at?: string;
     avatar?: string;
     completion_percentage?: number;
     active?: boolean;
+    web_notifications?: number;
 }
