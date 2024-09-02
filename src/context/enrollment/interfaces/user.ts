@@ -42,7 +42,7 @@ export interface User {
     sms_notifications?: number;
     state_province?: string;
     updated_at?: string;
-    avatar?: string;
+    avatar?: File | undefined;
     completion_percentage?: number;
     active?: boolean;
     web_notifications?: number;

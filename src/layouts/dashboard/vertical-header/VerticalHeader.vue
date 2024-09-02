@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import SvgSprite from '@/components/shared/SvgSprite.vue';
+import { ref, watch } from 'vue';
 import { useCustomizerStore } from '../../../stores/customizer';
 
 // assets
@@ -12,12 +12,13 @@ import message4 from '@/assets/images/widget/message/message4.svg';
 const messagedrawer = ref(false);
 
 // dropdown imports
+import SmallAvatar from '@/context/enrollment/components/app/users/avatars/SmallAvatar.vue';
+import type { PerfectScrollbar } from 'vue3-perfect-scrollbar';
 import LanguageDD from './LanguageDD.vue';
+import MegaMenuDD from './MegaMenuDD.vue';
 import NotificationDD from './NotificationDD.vue';
 import ProfileDD from './ProfileDD.vue';
-import MegaMenuDD from './MegaMenuDD.vue';
 import Searchbar from './SearchBarPanel.vue';
-import type { PerfectScrollbar } from 'vue3-perfect-scrollbar';
 
 const customizer = useCustomizerStore();
 const priority = ref(customizer.setHorizontalLayout ? 0 : 0);
@@ -146,9 +147,7 @@ watch(priority, (newPriority) => {
     <v-menu :close-on-content-click="false" offset="8, 0">
       <template v-slot:activator="{ props }">
         <v-btn class="profileBtn mr-0" aria-label="profile" variant="text" rounded="circle" icon v-bind="props">
-          <v-avatar class="py-2" size="40" rounded="circle">
-            <img src="@/assets/images/users/avatar-6.png" class="rounded-circle" alt="profile" />
-          </v-avatar>
+          <SmallAvatar :custom-class="['py-2']"/>
         </v-btn>
       </template>
       <v-sheet rounded="md" width="290">

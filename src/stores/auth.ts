@@ -1,10 +1,7 @@
-import { acceptHMRUpdate, defineStore } from 'pinia';
+import { logout } from '@/context/enrollment/services/userapi';
 import { router } from '@/router';
-import { random } from 'lodash';
-import type { AuthResponse } from '@/services/authorizatio_code_flow/authcode';
-import { get } from 'lodash';
-
-const baseUrl = `${import.meta.env.VITE_API_URL}/users`;
+import type { AuthResponse } from '@/shared/interfaces/auth';
+import { defineStore } from 'pinia';
 
 export const useAuthStore = defineStore({
   id: 'auth',
@@ -23,6 +20,7 @@ export const useAuthStore = defineStore({
       this.user = null;
       localStorage.removeItem('user');
       localStorage.removeItem('token');
+      logout();
       router.push('/auth/login1');
     },
 

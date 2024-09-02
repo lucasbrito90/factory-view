@@ -1,30 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import SvgSprite from '@/components/shared/SvgSprite.vue';
+import { ref } from 'vue';
 
 import { useAuthStore } from '@/stores/auth';
+import { useAuthUserStore } from '@/stores/authUser';
+import { useRouter } from 'vue-router';
 
 const tab = ref(null);
 const authStore = useAuthStore();
-
-const profiledata1 = ref([
-  {
-    title: 'Edit profile',
-    icon: 'custom-edit'
-  },
-  {
-    title: 'View Profile',
-    icon: 'custom-user-1'
-  },
-  {
-    title: 'Social Profile',
-    icon: 'custom-users'
-  },
-  {
-    title: 'Billing',
-    icon: 'custom-wallet'
-  }
-]);
+const router = useRouter();
+const user = useAuthUserStore();
 
 const profiledata2 = ref([
   {
@@ -56,12 +41,9 @@ const profiledata2 = ref([
   <!-- ---------------------------------------------- -->
   <div>
     <div class="d-flex align-center pa-5">
-      <v-avatar size="40" class="mr-2">
-        <img src="@/assets/images/users/avatar-6.png" width="40" alt="profile" />
-      </v-avatar>
       <div>
-        <h6 class="text-subtitle-1 mb-0">JWT User</h6>
-        <p class="text-caption text-lightText mb-0">UI/UX Designer</p>
+        <h6 class="text-subtitle-1 mb-0">{{ user.userAuthenticated?.name }}</h6>
+        <p class="text-caption text-lightText mb-0">{{ user.userAuthenticated?.role }}</p>
       </div>
       <div class="ml-auto">
         <v-btn variant="text" aria-label="logout" color="error" rounded="sm" icon size="large" @click="authStore.logout()">
@@ -88,22 +70,16 @@ const profiledata2 = ref([
       <v-window v-model="tab">
         <v-window-item value="111">
           <v-list class="px-2" aria-label="profile list" aria-busy="true">
-            <v-list-item
-              v-for="(item, index) in profiledata1"
-              :key="index"
-              color="primary"
-              base-color="secondary"
-              rounded="md"
-              :value="item.title"
-            >
+            <v-list-item @click="router.push({path: '/app/user/edit-my-profile'})" color="primary" base-color="secondary" rounded="md">
               <template v-slot:prepend>
                 <div class="mr-4">
-                  <SvgSprite :name="item.icon || ''" style="width: 18px; height: 18px" />
+                  <SvgSprite name="custom-edit" style="width: 18px; height: 18px" />
                 </div>
               </template>
 
-              <v-list-item-title class="text-h6">{{ item.title }}</v-list-item-title>
+              <v-list-item-title class="text-h6"> Edit profile</v-list-item-title>
             </v-list-item>
+
             <v-list-item @click="authStore.logout()" color="primary" base-color="secondary" rounded="md">
               <template v-slot:prepend>
                 <div class="mr-4">
@@ -113,6 +89,7 @@ const profiledata2 = ref([
 
               <v-list-item-title class="text-h6"> Logout</v-list-item-title>
             </v-list-item>
+            
           </v-list>
         </v-window-item>
         <v-window-item value="222">

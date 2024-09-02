@@ -74,7 +74,18 @@ export async function getUserByEmail(email: string): Promise<User> {
 }
 
 export async function updateUser(user: User): Promise<number> {
-    const response = await axios.post(`${authUrl}api/user/update`, user)
+
+    const formData = new FormData();
+    
+    Object.keys(user).forEach(key => {
+        if (user[key as keyof User] instanceof File) {
+            formData.append(key, user[key as keyof User] as File);
+        } else {
+            formData.append(key, user[key as keyof User] as string);
+        }
+    });
+
+    const response = await axios.post(`${authUrl}api/user/update`, formData)
 
     return response.status;
 }
@@ -83,4 +94,35 @@ export async function getUserPermissions(email: string): Promise<string[]> {
     const response = await axios.post(`${authUrl}api/user/permissions/get`, { email })
 
     return response.data;
+}
+
+export async function getUserByAccessToken(): Promise<User> {
+    const response = await axios.post(`${authUrl}api/user/token/get-user`)
+
+    return response.data;
+}
+
+export async function logout(): Promise<number> {
+    const response = await axios.post(`${authUrl}api/user/logout`)
+
+    return response.status;
+}
+
+export interface ChangePassword {
+    email: string;
+    password: string;
+    old_password: string;
+    password_confirmation : string;
+}
+
+export async function changePassword(params: ChangePassword): Promise<number> {
+    const response = await axios.post(`${authUrl}api/user/update-password`, params)
+
+    return response.status;
+}
+
+export async function getVerificationCode(email: string): Promise<number> {
+    const response = await axios.post(`${authUrl}api/user/send-email-verification`, { email })
+
+    return response.status;
 }

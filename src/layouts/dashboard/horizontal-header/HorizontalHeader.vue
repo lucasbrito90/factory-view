@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
 import SvgSprite from '@/components/shared/SvgSprite.vue';
+import { ref, watch } from 'vue';
 import { useCustomizerStore } from '../../../stores/customizer';
 import Logo from '../logo/LogoMain.vue';
 // dropdown imports
 import LanguageDD from '../vertical-header/LanguageDD.vue';
+import MegaMenuDD from '../vertical-header/MegaMenuDD.vue';
 import NotificationDD from '../vertical-header/NotificationDD.vue';
 import ProfileDD from '../vertical-header/ProfileDD.vue';
-import MegaMenuDD from '../vertical-header/MegaMenuDD.vue';
 import Searchbar from '../vertical-header/SearchBarPanel.vue';
 
 // assets
@@ -15,6 +15,7 @@ import message1 from '@/assets/images/widget/message/message1.svg';
 import message2 from '@/assets/images/widget/message/message2.svg';
 import message3 from '@/assets/images/widget/message/message3.svg';
 import message4 from '@/assets/images/widget/message/message4.svg';
+import { useAuthUserStore } from '@/stores/authUser';
 
 const messagedrawer = ref(false);
 
@@ -24,6 +25,8 @@ watch(priority, (newPriority) => {
   // yes, console.log() is a side effect
   priority.value = newPriority;
 });
+
+const user = useAuthUserStore();
 </script>
 
 <template>

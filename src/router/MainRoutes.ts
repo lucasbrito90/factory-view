@@ -203,6 +203,11 @@ const MainRoutes = {
       component: () => import('@/views/apps/invoice/EditPage.vue')
     },
     {
+      name: 'Edit My Profile',
+      path: '/app/user/edit-my-profile',
+      component: () => import('@/context/enrollment/views/app/users/UserOwnProfilePage.vue')
+    },
+    {
       name: 'UserProfile',
       path: '/app/user/userprofile',
       component: () => import('@/context/enrollment/views/app/users/UserProfilePage.vue')
