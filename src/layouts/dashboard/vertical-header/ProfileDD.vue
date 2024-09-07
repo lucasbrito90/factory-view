@@ -42,8 +42,8 @@ const profiledata2 = ref([
   <div>
     <div class="d-flex align-center pa-5">
       <div>
-        <h6 class="text-subtitle-1 mb-0">{{ user.userAuthenticated?.name }}</h6>
-        <p class="text-caption text-lightText mb-0">{{ user.userAuthenticated?.role }}</p>
+        <h6 class="text-subtitle-1 mb-0">{{ user.userAuth?.name }}</h6>
+        <p class="text-caption text-lightText mb-0">{{ user.userAuth?.role }}</p>
       </div>
       <div class="ml-auto">
         <v-btn variant="text" aria-label="logout" color="error" rounded="sm" icon size="large" @click="authStore.logout()">

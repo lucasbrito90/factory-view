@@ -1,10 +1,12 @@
 <script setup lang="ts">
 
 import InteractiveLoading from '@/context/enrollment/components/loading/InteractiveLoading.vue';
-import { getToken, getUserPermissions } from '@/services/authorizatio_code_flow/authcode';
-import type { AuthResponse } from '@/shared/interfaces/auth';
+import type { OAuth2Response, OpenidResponse } from "@/context/enrollment/interfaces/auth";
+import { getUserByEmail, getUserPermissions } from '@/context/enrollment/services/userapi';
+import { useKeycloakStore } from '@/stores/apps/keycloak';
 import { useAuthStore } from '@/stores/auth';
 import { useAuthUserStore } from '@/stores/authUser';
+import { jwtDecode } from 'jwt-decode';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -14,23 +16,43 @@ const router = useRouter();
 const authStore = useAuthStore();
 const authUserStore = useAuthUserStore();
 
+const useKeycloak = useKeycloakStore();
+
 onMounted(async () => {
     code.value = route.query.code as string;
 
+    if (route.query.state != useKeycloak.state) {
+        router.push({ name: 'Login' });
+    }
+
     if (code.value) {
-        const response: AuthResponse = await getToken(code.value);
-        authStore.user = response;
+
+        const response: OAuth2Response = await useKeycloak.getToken(code.value);
+
+        if (response.id_token) {
+            const openidResponse: OpenidResponse = jwtDecode(response.id_token);
+
+            if (openidResponse.nonce != useKeycloak.nonce) {
+                router.push({ name: 'Login' });
+            }
+
+            authStore.setToken();
+
+            // Set User in the store
+
+            authUserStore.userAuth = await getUserByEmail(openidResponse.email);
+
+
+            // In order to get the permissions, we need to make the previous request
+            // to set the token in the store that means we are authenticated
+            authUserStore.userAuth.permissions = await getUserPermissions(openidResponse.email);
+
+            
+        }
 
         // Set token in the store
-        authStore.setToken();
+        authStore.OAuthToken = response;
 
-        // In order to get the permissions, we need to make the previous request
-        // to set the token in the store that means we are authenticated
-        const permissions: string[] = await getUserPermissions();
-        authStore.user.permissions = permissions;
-
-        // Set User in the store
-        authUserStore.getUserAccessToken();
 
         router.push({ name: 'Default' });
     }

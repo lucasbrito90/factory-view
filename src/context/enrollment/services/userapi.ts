@@ -1,24 +1,24 @@
+import { request } from '@/axios';
 import type { AddPermission, RegisterUser, SetUsersNotification, User } from '@/context/enrollment/interfaces/user';
+import type { menu } from '@/layouts/dashboard/vertical-sidebar/sidebarItem';
 import type { Pagination } from '@/shared/interfaces/Pagination';
-import axios from 'axios';
 
-const authUrl =  import.meta.env.VITE_AUTH_API;
-
+const authUrl =  import.meta.env.VITE_API_ENROLLMENT;
 export async function registerUser(user: RegisterUser): Promise<number> {
 
-    const response = await axios.post(`${authUrl}api/user/create`, user)
+    const response = await request.post(`${authUrl}api/user/create`, user)
 
     return response.status;
 }
 
 export async function addPermission(params: AddPermission): Promise<number> {
-    const response = await axios.post(`${authUrl}api/user/permissions`,  params)
+    const response = await request.post(`${authUrl}api/user/permissions`,  params)
 
     return response.status;
 }
 
 export async function setUsersNotification(params: SetUsersNotification): Promise<number> {
-    const response = await axios.post(`${authUrl}api/user/notifications`, params)
+    const response = await request.post(`${authUrl}api/user/notifications`, params)
 
     return response.status;
 }
@@ -50,25 +50,25 @@ export async function listUsers(options : PaginationOptions): Promise<Pagination
         role,
         sector
     });
-    const response = await axios.get(`${authUrl}api/user/list`, { params })
+    const response = await request.get(`${authUrl}api/user/list`, { params })
 
     return response.data;
 }
 
 export async function activeUser(email: string): Promise<number> {
-    const response = await axios.post(`${authUrl}api/user/active`, { email })
+    const response = await request.post(`${authUrl}api/user/active`, { email })
 
     return response.status;
 }
 
 export async function deactiveUser(email: string): Promise<number> {
-    const response = await axios.post(`${authUrl}api/user/deactivate`, { email })
+    const response = await request.post(`${authUrl}api/user/deactivate`, { email })
 
     return response.status;
 }
 
 export async function getUserByEmail(email: string): Promise<User> {
-    const response = await axios.post(`${authUrl}api/user/get`, { email })
+    const response = await request.post(`${authUrl}api/user/get`, { email })
 
     return response.data;
 }
@@ -85,25 +85,25 @@ export async function updateUser(user: User): Promise<number> {
         }
     });
 
-    const response = await axios.post(`${authUrl}api/user/update`, formData)
+    const response = await request.post(`${authUrl}api/user/update`, formData)
 
     return response.status;
 }
 
 export async function getUserPermissions(email: string): Promise<string[]> {
-    const response = await axios.post(`${authUrl}api/user/permissions/get`, { email })
+    const response = await request.post(`${authUrl}api/user/permissions/get`, { email })
 
     return response.data;
 }
 
 export async function getUserByAccessToken(): Promise<User> {
-    const response = await axios.post(`${authUrl}api/user/token/get-user`)
+    const response = await request.post(`${authUrl}api/user/token/get-user`)
 
     return response.data;
 }
 
 export async function logout(): Promise<number> {
-    const response = await axios.post(`${authUrl}api/user/logout`)
+    const response = await request.post(`${authUrl}api/user/logout`)
 
     return response.status;
 }
@@ -116,13 +116,19 @@ export interface ChangePassword {
 }
 
 export async function changePassword(params: ChangePassword): Promise<number> {
-    const response = await axios.post(`${authUrl}api/user/update-password`, params)
+    const response = await request.post(`${authUrl}api/user/update-password`, params)
 
     return response.status;
 }
 
 export async function getVerificationCode(email: string): Promise<number> {
-    const response = await axios.post(`${authUrl}api/user/send-email-verification`, { email })
+    const response = await request.post(`${authUrl}api/user/send-email-verification`, { email })
 
     return response.status;
+}
+
+export async function getMenu(email: string): Promise<menu[]> {
+    const response = await request.post(`${authUrl}api/user/menu`, { email })
+
+    return response.data;
 }

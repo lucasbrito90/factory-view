@@ -1,13 +1,7 @@
 import axios from "axios";
 
-axios.interceptors.request.use(config => {
-    const token: string | null = localStorage.getItem('token');
+export const request = axios.create({});
 
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    return config;
-}, error => {
-    return Promise.reject(error);
-});
+export function setToken(token: string) {
+    request.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}

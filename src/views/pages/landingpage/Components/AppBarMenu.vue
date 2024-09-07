@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref, type Ref } from 'vue';
 
 import SvgSprite from '@/components/shared/SvgSprite.vue';
 
-import Logo from './LogoMain.vue';
+import { useKeycloakStore } from '@/stores/apps/keycloak';
 import { useDisplay } from 'vuetify';
-import { authUrl } from '@/services/authorizatio_code_flow/authcode';
+import Logo from './LogoMain.vue';
 
 const { mdAndUp } = useDisplay();
 const drawer = ref(false);
+const useKeycloak = useKeycloakStore();
+const url: Ref<string> = ref('');
 
+onMounted(async () => {
+  url.value = await useKeycloak.getCode();
+});
 
-
-const url = ref<string>(authUrl);
 </script>
 
 <template>
@@ -40,7 +43,13 @@ const url = ref<string>(authUrl);
           >
             <SvgSprite name="custom-document-2" style="width: 20px; height: 20px" />
           </v-btn>
-          <v-btn variant="flat" class="font-weight-medium ml-4" height="42px" color="success" rounded="md" :href="url">
+          <v-btn 
+            variant="flat" 
+            class="font-weight-medium ml-4"
+            height="42px"
+            color="success" 
+            rounded="md" 
+            :href="url">
             <template v-slot:prepend>
               <SvgSprite name="custom-link2" style="width: 20px; height: 20px" />
             </template>
@@ -94,7 +103,7 @@ const url = ref<string>(authUrl);
 
         <v-list-item-title class="ml-3 text-lightText text-h6">Support</v-list-item-title>
       </v-list-item>
-      <v-list-item :href="url" target="_">
+      <v-list-item href="#" target="_">
         <template v-slot:prepend>
           <SvgSprite name="custom-line" class="text-lightText" style="width: 20px; height: 20px" />
         </template>

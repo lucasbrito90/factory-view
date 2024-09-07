@@ -35,6 +35,8 @@
     "axios-mock-adapter": "1.22.0",
     "chance": "1.1.11",
     "date-fns": "3.6.0",
+    "jwt-decode": "^4.0.0",
+    "keycloak-js": "^25.0.4",
     "lodash": "4.17.21",
     "maska": "^2.1.11",
     "moment": "^2.30.1",

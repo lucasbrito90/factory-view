@@ -46,4 +46,5 @@ export interface User {
     completion_percentage?: number;
     active?: boolean;
     web_notifications?: number;
+    permissions?: string[];
 }

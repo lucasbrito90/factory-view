@@ -18,7 +18,7 @@ const user = useAuthUserStore();
 const photo: Ref<File | null> = ref(null);
 
 async function verifyEmail() {
-  await getVerificationCode(user.userAuthenticated?.email || '');
+  await getVerificationCode(user.userAuth?.email || '');
 }
 
 function updatePhoto(file: File) {
@@ -40,7 +40,7 @@ function updatePhoto(file: File) {
             rounded="md" 
             class="editBtn" 
             @click="verifyEmail"
-            v-if="user.userAuthenticated?.email_verified_at == null"
+            v-if="user.userAuth?.email_verified_at == null"
             >{{ $t("PersonalInformation.Verify Your Email")  }}</v-btn>
           </div>
         </v-card-item>

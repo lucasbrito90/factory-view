@@ -1,7 +1,7 @@
 import type { AddPermission, RegisterUser, SetUsersNotification } from '@/shared/interfaces/user';
 import axios from 'axios';
 
-const authUrl =  import.meta.env.VITE_AUTH_API;
+const authUrl =  import.meta.env.VITE_API_ENROLLMENT;
 
 export async function registerUser(user: RegisterUser): Promise<number> {
 

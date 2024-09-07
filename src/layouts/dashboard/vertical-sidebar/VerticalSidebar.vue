@@ -1,18 +1,21 @@
 <script setup lang="ts">
+import { useAuthUserStore } from '@/stores/authUser';
 import { shallowRef } from 'vue';
 import { useCustomizerStore } from '../../../stores/customizer';
-import { getMenu, type menu } from './sidebarItem';
+import { type menu } from './sidebarItem';
 
+import { getMenu } from '@/context/enrollment/services/userapi';
 import Logo from '../logo/LogoMain.vue';
 import NavCollapse from './NavCollapse/NavCollapse.vue';
 import NavGroup from './NavGroup/NavGroup.vue';
 import NavItem from './NavItem/NavItem.vue';
 import ExtraBox from './extrabox/ExtraBox.vue';
 
-const menus: menu[] = await getMenu();
+const authUserStore = useAuthUserStore();
+
+const menus: menu[] = await getMenu(authUserStore.userAuth?.email || '');
 const customizer = useCustomizerStore();
 const sidebarMenu = shallowRef(menus);
-
 </script>
 
 <template>

@@ -21,7 +21,7 @@ const items: Ref<{
 }[]> = ref([]);
 
 onMounted(async () => {
- user.value = await getUserByEmail(userAuth.userAuthenticated?.email || ''); 
+ user.value = await getUserByEmail(userAuth.userAuth?.email || ''); 
  
  items.value = [
   createSwitcherQuery(
@@ -59,7 +59,7 @@ async function submit() {
   try {
 
     const result = await setUsersNotification({
-      email: userAuth.userAuthenticated?.email || '',
+      email: userAuth.userAuth?.email || '',
       email_notifications: items.value[0].value ?? false,
       web_notifications: items.value[1].value ?? false,
       sms_notifications: items.value[2].value ?? false

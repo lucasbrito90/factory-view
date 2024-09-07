@@ -1,8 +1,6 @@
-import type { AuthResponse } from "@/context/enrollment/interfaces/auth";
-import { useAuthStore } from "@/stores/auth";
+import type { OAuth2Response } from "@/context/enrollment/interfaces/auth";
 import axios from "axios";
 
-const authStore = useAuthStore();
 export const authUrl = await getAuthUrl();
 
 export async function getAuthUrl() {
@@ -11,7 +9,7 @@ export async function getAuthUrl() {
         client_id: import.meta.env.VITE_AUTH_CODE_CLIENT_ID,
         redirect_uri: import.meta.env.VITE_AUTH_REDIRECT_URI,
         response_type: 'code',
-        state: authStore.state,
+        state: localStorage.getItem('state') || '',
         // scope: 'openid profile email'
         // prompt: 'consent'
     });
@@ -20,7 +18,7 @@ export async function getAuthUrl() {
     return `${import.meta.env.VITE_AUTH_ENDPOINT}?${params.toString()}`;
 }
 
-export async function getToken(code: string): Promise<AuthResponse> {
+export async function getToken(code: string): Promise<OAuth2Response> {
 
     const response = await axios.post(import.meta.env.VITE_TOKEN_ENDPOINT, {
         grant_type: 'authorization_code',
@@ -33,7 +31,7 @@ export async function getToken(code: string): Promise<AuthResponse> {
     return response.data;
 }
 
-export async function refreshToken(refreshToken: string): Promise<AuthResponse> {
+export async function refreshToken(refreshToken: string): Promise<OAuth2Response> {
 
     const response = await axios.post(import.meta.env.VITE_TOKEN_ENDPOINT, {
         grant_type: 'refresh_token',
@@ -47,7 +45,7 @@ export async function refreshToken(refreshToken: string): Promise<AuthResponse> 
 
 export async function getUserPermissions(): Promise<string[]> {
 
-    const response = await axios.get(`${import.meta.env.VITE_AUTH_API}api/roles/user-permissions`);
+    const response = await axios.get(`${import.meta.env.VITE_API_ENROLLMENT}api/roles/user-permissions`);
 
     return response.data;
 }

@@ -27,15 +27,15 @@ const isUpdating = ref(false);
 
 const goTo = useGoTo();
 
-const name: Ref<string> = ref(user.userAuthenticated?.name || '');
-const email: Ref<string> = ref(user.userAuthenticated?.email || '');
-const fullDateOfBirth: Ref<Date> = ref(user.userAuthenticated?.date_of_birth ? new Date(user.userAuthenticated?.date_of_birth) : new Date());
-const phoneNumber: Ref<string> = ref(user.userAuthenticated?.phone_number || '');
-const address: Ref<string> = ref(user.userAuthenticated?.address || '');
-const country: Ref<string> = ref(user.userAuthenticated?.country || '');
-const city: Ref<string> = ref(user.userAuthenticated?.city || '');
-const stateProvince: Ref<string> = ref(user.userAuthenticated?.state_province || '');
-const postalCode: Ref<string> = ref(user.userAuthenticated?.postal_code || '');
+const name: Ref<string> = ref(user.userAuth?.name || '');
+const email: Ref<string> = ref(user.userAuth?.email || '');
+const fullDateOfBirth: Ref<Date> = ref(user.userAuth?.date_of_birth ? new Date(user.userAuth?.date_of_birth) : new Date());
+const phoneNumber: Ref<string> = ref(user.userAuth?.phone_number || '');
+const address: Ref<string> = ref(user.userAuth?.address || '');
+const country: Ref<string> = ref(user.userAuth?.country || '');
+const city: Ref<string> = ref(user.userAuth?.city || '');
+const stateProvince: Ref<string> = ref(user.userAuth?.state_province || '');
+const postalCode: Ref<string> = ref(user.userAuth?.postal_code || '');
 
 const Regform = ref();
 
@@ -72,11 +72,9 @@ async function submit() {
 
   if (Regform.value.isValid) {
 
-    console.log(props.photo);
-
     try {
       const result: number = await updateUser({
-        id: user.userAuthenticated?.id || 0,
+        id: user.userAuth?.id || 0,
         name: name.value,
         email: email.value,
         date_of_birth: computedDateFormattedMomentjs.value || '',
@@ -93,7 +91,7 @@ async function submit() {
         alert.addSuccess('User updated successfully');
 
         user.setUserAuthenticated(
-          await getUserByEmail(user.userAuthenticated?.email || '')
+          await getUserByEmail(user.userAuth?.email || '')
         )
 
       }

@@ -1,24 +1,37 @@
 import type { User } from '@/context/enrollment/interfaces/user';
-import { getUserByAccessToken } from '@/context/enrollment/services/userapi';
+import { getUserByEmail } from '@/context/enrollment/services/userapi';
 import { defineStore } from 'pinia';
 import { ref, type Ref } from 'vue';
 
 export const useAuthUserStore = defineStore(
 'authUser', () => {
-  const userAuthenticated: Ref<User | null> = ref(null);
+  const userAuth: Ref<User | null> = ref(null);
 
-  async function getUserAccessToken(): Promise<void> {
-    userAuthenticated.value = await getUserByAccessToken();
+  async function getUserAccessToken(email: string): Promise<void> {
+    userAuth.value = await getUserByEmail(email);
   }
 
   async function setUserAuthenticated(user: User): Promise<void> {
-    userAuthenticated.value = user;
+    userAuth.value = user;
+  }
+
+  function hasPermission(permission: string): boolean {
+    if (!userAuth.value) {
+      return false
+    }
+
+    if (userAuth.value.permissions?.includes(permission)) {
+      return true;
+    }
+
+    return false;
   }
 
   return {
-    userAuthenticated,
+    userAuth,
     getUserAccessToken,
     setUserAuthenticated,
+    hasPermission
   }
 },
 {

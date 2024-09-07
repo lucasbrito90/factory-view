@@ -54,9 +54,9 @@ function checkPassword() {
 
 async function updatePassword() {
 
-  if(user.userAuthenticated?.email !== undefined) {
+  if(user.userAuth?.email !== undefined) {
     const result = await changePassword({
-      email: user.userAuthenticated?.email,
+      email: user.userAuth?.email,
       password: npassword.value,
       old_password: cpassword.value,
       password_confirmation : conpassword.value

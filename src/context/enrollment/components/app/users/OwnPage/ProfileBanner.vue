@@ -5,7 +5,7 @@ import { computed } from 'vue';
 
 const user = useAuthUserStore();
 const completionPercentage = computed(() => {
-  return [user.userAuthenticated?.completion_percentage?.toFixed(2) || 0];
+  return [user.userAuth?.completion_percentage?.toFixed(2) || 0];
 });
 
 const chartOptions = computed(() => {
