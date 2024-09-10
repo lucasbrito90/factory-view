@@ -10,15 +10,15 @@ import UserBackLeft from '@/context/enrollment/components/app/users/OwnPage/User
 import UserBackRight from '@/context/enrollment/components/app/users/OwnPage/UserBackRight.vue';
 import UserDetails from '@/context/enrollment/components/app/users/OwnPage/UserDetails.vue';
 import { getVerificationCode } from '@/context/enrollment/services/userapi';
-import { useAuthUserStore } from '@/stores/authUser';
+import { useAuthStore } from '@/stores/auth';
 
 const tab = ref('one');
 
-const user = useAuthUserStore();
+const authStore = useAuthStore();
 const photo: Ref<File | null> = ref(null);
 
 async function verifyEmail() {
-  await getVerificationCode(user.userAuth?.email || '');
+  await getVerificationCode(authStore.User?.email || '');
 }
 
 function updatePhoto(file: File) {
@@ -40,7 +40,7 @@ function updatePhoto(file: File) {
             rounded="md" 
             class="editBtn" 
             @click="verifyEmail"
-            v-if="user.userAuth?.email_verified_at == null"
+            v-if="authStore.User?.email_verified_at == null"
             >{{ $t("PersonalInformation.Verify Your Email")  }}</v-btn>
           </div>
         </v-card-item>

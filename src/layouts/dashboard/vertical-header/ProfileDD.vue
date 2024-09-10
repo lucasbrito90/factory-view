@@ -3,13 +3,11 @@ import SvgSprite from '@/components/shared/SvgSprite.vue';
 import { ref } from 'vue';
 
 import { useAuthStore } from '@/stores/auth';
-import { useAuthUserStore } from '@/stores/authUser';
 import { useRouter } from 'vue-router';
 
 const tab = ref(null);
 const authStore = useAuthStore();
 const router = useRouter();
-const user = useAuthUserStore();
 
 const profiledata2 = ref([
   {
@@ -42,8 +40,8 @@ const profiledata2 = ref([
   <div>
     <div class="d-flex align-center pa-5">
       <div>
-        <h6 class="text-subtitle-1 mb-0">{{ user.userAuth?.name }}</h6>
-        <p class="text-caption text-lightText mb-0">{{ user.userAuth?.role }}</p>
+        <h6 class="text-subtitle-1 mb-0">{{ authStore.User?.name }}</h6>
+        <p class="text-caption text-lightText mb-0">{{ authStore.User?.role }}</p>
       </div>
       <div class="ml-auto">
         <v-btn variant="text" aria-label="logout" color="error" rounded="sm" icon size="large" @click="authStore.logout()">

@@ -5,8 +5,8 @@ import type { OAuth2Response, OpenidResponse } from "@/context/enrollment/interf
 import { getUserByEmail, getUserPermissions } from '@/context/enrollment/services/userapi';
 import { useKeycloakStore } from '@/stores/apps/keycloak';
 import { useAuthStore } from '@/stores/auth';
-import { useAuthUserStore } from '@/stores/authUser';
 import { jwtDecode } from 'jwt-decode';
+import Cookies from 'universal-cookie';
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -14,7 +14,7 @@ const code = ref<string | null>(null);
 const route = useRoute();
 const router = useRouter();
 const authStore = useAuthStore();
-const authUserStore = useAuthUserStore();
+const cookies = new Cookies(null, {path: '/'});
 
 const useKeycloak = useKeycloakStore();
 
@@ -29,30 +29,37 @@ onMounted(async () => {
 
         const response: OAuth2Response = await useKeycloak.getToken(code.value);
 
+        if (cookies.get('oAuthToken')) {
+            cookies.remove('oAuthToken');
+        }
+
+        cookies.set('oAuthToken', response);
+
         if (response.id_token) {
             const openidResponse: OpenidResponse = jwtDecode(response.id_token);
+            
+            //add openidResponse to cookie
+            if (cookies.get('openidResponse')) {
+                cookies.remove('openidResponse');
+            }
+
+            cookies.set('openidResponse', openidResponse);
 
             if (openidResponse.nonce != useKeycloak.nonce) {
                 router.push({ name: 'Login' });
             }
 
-            authStore.setToken();
-
             // Set User in the store
-
-            authUserStore.userAuth = await getUserByEmail(openidResponse.email);
-
+            authStore.User = await getUserByEmail(openidResponse.email);
 
             // In order to get the permissions, we need to make the previous request
             // to set the token in the store that means we are authenticated
-            authUserStore.userAuth.permissions = await getUserPermissions(openidResponse.email);
-
+            authStore.User.permissions = await getUserPermissions(openidResponse.email);
             
         }
 
         // Set token in the store
-        authStore.OAuthToken = response;
-
+        // authStore.OAuthToken = response;
 
         router.push({ name: 'Default' });
     }

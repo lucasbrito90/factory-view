@@ -2,13 +2,13 @@
 import SvgSprite from '@/components/shared/SvgSprite.vue';
 import { getUserByEmail, updateUser } from '@/context/enrollment/services/userapi';
 import { useAlertStore } from '@/stores/alert';
-import { useAuthUserStore } from '@/stores/authUser';
+import { useAuthStore } from '@/stores/auth';
 import countries from "@/utils/helpers/countries";
 import moment from 'moment';
 import { computed, ref, type Ref } from 'vue';
 import { useGoTo } from 'vuetify';
 
-const user = useAuthUserStore();
+const authStore = useAuthStore();
 
 const alert = useAlertStore();
 
@@ -27,15 +27,15 @@ const isUpdating = ref(false);
 
 const goTo = useGoTo();
 
-const name: Ref<string> = ref(user.userAuth?.name || '');
-const email: Ref<string> = ref(user.userAuth?.email || '');
-const fullDateOfBirth: Ref<Date> = ref(user.userAuth?.date_of_birth ? new Date(user.userAuth?.date_of_birth) : new Date());
-const phoneNumber: Ref<string> = ref(user.userAuth?.phone_number || '');
-const address: Ref<string> = ref(user.userAuth?.address || '');
-const country: Ref<string> = ref(user.userAuth?.country || '');
-const city: Ref<string> = ref(user.userAuth?.city || '');
-const stateProvince: Ref<string> = ref(user.userAuth?.state_province || '');
-const postalCode: Ref<string> = ref(user.userAuth?.postal_code || '');
+const name: Ref<string> = ref(authStore.User?.name || '');
+const email: Ref<string> = ref(authStore.User?.email || '');
+const fullDateOfBirth: Ref<Date> = ref(authStore.User?.date_of_birth ? new Date(authStore.User?.date_of_birth) : new Date());
+const phoneNumber: Ref<string> = ref(authStore.User?.phone_number || '');
+const address: Ref<string> = ref(authStore.User?.address || '');
+const country: Ref<string> = ref(authStore.User?.country || '');
+const city: Ref<string> = ref(authStore.User?.city || '');
+const stateProvince: Ref<string> = ref(authStore.User?.state_province || '');
+const postalCode: Ref<string> = ref(authStore.User?.postal_code || '');
 
 const Regform = ref();
 
@@ -74,7 +74,7 @@ async function submit() {
 
     try {
       const result: number = await updateUser({
-        id: user.userAuth?.id || 0,
+        id: authStore.User?.id || 0,
         name: name.value,
         email: email.value,
         date_of_birth: computedDateFormattedMomentjs.value || '',
@@ -90,8 +90,8 @@ async function submit() {
       if (result === 200) {
         alert.addSuccess('User updated successfully');
 
-        user.setUserAuthenticated(
-          await getUserByEmail(user.userAuth?.email || '')
+        authStore.setUserAuthenticated(
+          await getUserByEmail(authStore.User?.email || '')
         )
 
       }

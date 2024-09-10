@@ -103,7 +103,6 @@ async function submit() {
         } catch (error) {
             //TODO: handle error
             //LOG ERROR
-            console.log(error);
         }
     }
 

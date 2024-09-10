@@ -45,6 +45,7 @@
     "remixicon": "4.2.0",
     "resolve-url-loader": "^5.0.0",
     "typescript-eslint": "^7.8.0",
+    "universal-cookie": "^7.2.0",
     "v-calendar": "3.0.0-alpha.8",
     "vee-validate": "4.12.7",
     "vite-plugin-vuetify": "2.0.3",

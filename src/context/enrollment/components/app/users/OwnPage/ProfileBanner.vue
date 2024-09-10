@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { getdarkPrimary } from '@/context/enrollment/components/forms/charts/apex-chart/UpdateColors';
-import { useAuthUserStore } from '@/stores/authUser';
+import { useAuthStore } from '@/stores/auth';
 import { computed } from 'vue';
 
-const user = useAuthUserStore();
+const authStore = useAuthStore();
 const completionPercentage = computed(() => {
-  return [user.userAuth?.completion_percentage?.toFixed(2) || 0];
+  return [authStore.User?.completion_percentage?.toFixed(2) || 0];
 });
 
 const chartOptions = computed(() => {

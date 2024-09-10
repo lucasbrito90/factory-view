@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import SvgSprite from '@/components/shared/SvgSprite.vue';
-import { useAuthStore } from '@/stores/auth';
 import { Form } from 'vee-validate';
+import { ref } from 'vue';
 
 const checkbox = ref(false);
 const valid = ref(false);
@@ -17,7 +16,6 @@ const emailRules = ref([(v: string) => !!v || 'E-mail is required', (v: string) 
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 function validate(values: any, { setErrors }: any) {
-  const authStore = useAuthStore();
   // return authStore?.login(username.value, password.value).catch((error) => setErrors({ apiError: error }));
 }
 </script>

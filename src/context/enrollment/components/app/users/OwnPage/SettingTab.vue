@@ -3,14 +3,14 @@ import SvgSprite from '@/components/shared/SvgSprite.vue';
 import type { User } from '@/context/enrollment/interfaces/user';
 import { getUserByEmail, setUsersNotification } from '@/context/enrollment/services/userapi';
 import { useAlertStore } from '@/stores/alert';
-import { useAuthUserStore } from '@/stores/authUser';
+import { useAuthStore } from '@/stores/auth';
 import { onMounted, ref, type Ref } from 'vue';
 
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
 const alert = useAlertStore();
-const userAuth = useAuthUserStore();
+const authStore = useAuthStore();
 
 const user: Ref<User | null> = ref(null);
 const items: Ref<{
@@ -21,7 +21,7 @@ const items: Ref<{
 }[]> = ref([]);
 
 onMounted(async () => {
- user.value = await getUserByEmail(userAuth.userAuth?.email || ''); 
+ user.value = await getUserByEmail(authStore.User?.email || ''); 
  
  items.value = [
   createSwitcherQuery(
@@ -32,14 +32,20 @@ onMounted(async () => {
   ),
   createSwitcherQuery(
     t('PersonalInformation.Enable Web Notification.Title'),
-    'custom-mail-outline',
+    'custom-notification-outline',
     t('PersonalInformation.Enable Web Notification.Content'),
     user.value?.web_notifications
   ),
   createSwitcherQuery(
     t('PersonalInformation.Setup SMS Notification.Title'),
-    'custom-translation-outlie',
+    'custom-share-bold',
     t('PersonalInformation.Setup SMS Notification.Content'),
+    user.value.sms_notifications
+  ),
+  createSwitcherQuery(
+    t('PersonalInformation.Setup 2FA Notification.Enable 2FA'),
+    'custom-lock-outline',
+    t('PersonalInformation.Setup 2FA Notification.Content'),
     user.value.sms_notifications
   )
 ]
@@ -59,7 +65,7 @@ async function submit() {
   try {
 
     const result = await setUsersNotification({
-      email: userAuth.userAuth?.email || '',
+      email: authStore.User?.email || '',
       email_notifications: items.value[0].value ?? false,
       web_notifications: items.value[1].value ?? false,
       sms_notifications: items.value[2].value ?? false
@@ -67,6 +73,10 @@ async function submit() {
 
     if (result === 200) {
       alert.addSuccess(t("Settings updated successfully"));
+    }
+
+    if (items.value[3].value === true) {
+      //TODO: Implement 2FA
     }
 
   } catch (error) {

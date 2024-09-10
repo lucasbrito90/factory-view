@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAuthUserStore } from '@/stores/authUser';
+import { useAuthStore } from '@/stores/auth';
 import { shallowRef } from 'vue';
 import { useCustomizerStore } from '../../../stores/customizer';
 import { type menu } from './sidebarItem';
@@ -11,9 +11,9 @@ import NavGroup from './NavGroup/NavGroup.vue';
 import NavItem from './NavItem/NavItem.vue';
 import ExtraBox from './extrabox/ExtraBox.vue';
 
-const authUserStore = useAuthUserStore();
+const authStore = useAuthStore();
 
-const menus: menu[] = await getMenu(authUserStore.userAuth?.email || '');
+const menus: menu[] = await getMenu(authStore.User?.email || '');
 const customizer = useCustomizerStore();
 const sidebarMenu = shallowRef(menus);
 </script>

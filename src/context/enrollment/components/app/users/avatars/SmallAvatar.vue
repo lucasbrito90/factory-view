@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useAuthUserStore } from '@/stores/authUser';
+import { useAuthStore } from '@/stores/auth';
 
-const user = useAuthUserStore();
+const authStore = useAuthStore();
 
 const props = defineProps<{
     customClass?: string[];
@@ -12,10 +12,10 @@ const props = defineProps<{
 
 <template>
     <v-avatar :class="props.customClass" size="40" rounded="circle"
-        v-if="user.userAuth?.avatar && typeof user.userAuth?.avatar === 'string'">
-        <img :src="user.userAuth?.avatar" class="rounded-circle" width="40" alt="profile" />
+        v-if="authStore.User?.avatar && typeof authStore.User.avatar === 'string'">
+        <img :src="authStore.User?.avatar" class="rounded-circle" width="40" alt="profile" />
     </v-avatar>
     <v-avatar :class="props.customClass" size="40" color="lightprimary" class="text-primary py-2" variant="flat" v-else> 
-        {{ user.userAuth?.name?.substring(0, 2).toUpperCase() || '' }}
+        {{ authStore.User?.name?.substring(0, 2).toUpperCase() || '' }}
     </v-avatar>
 </template>

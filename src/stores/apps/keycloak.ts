@@ -1,6 +1,8 @@
 import { request } from "@/axios";
-import type { OAuth2Response } from "@/context/enrollment/interfaces/auth";
+import type { OAuth2Response, OpenidResponse } from "@/context/enrollment/interfaces/auth";
+import { jwtDecode } from "jwt-decode";
 import { defineStore } from "pinia";
+import Cookies from 'universal-cookie';
 import { ref, type Ref } from "vue";
 
 export const useKeycloakStore = defineStore(
@@ -11,6 +13,8 @@ export const useKeycloakStore = defineStore(
 
         const nonce: Ref<string | null> = ref(null);
         const state: Ref<string | null> = ref(null);
+        const cookies = new Cookies(null, { path: '/' });
+
 
 
         async function getCode(): Promise<string> {
@@ -60,21 +64,67 @@ export const useKeycloakStore = defineStore(
             return response.data;
         }
 
-        async function refreshToken(refreshToken: string): Promise<OAuth2Response> {
+        async function refreshToken(): Promise<OAuth2Response> {
 
-            const response = await request.post(`${KEYCLOAK_URL}/protocol/openid-connect/token`, {
+            const oAuthToken: OAuth2Response = cookies.get('oAuthToken');
+
+            const response = await request.post(`/api/realms/${import.meta.env.VITE_AUTH_REAML_DEFAULT}/protocol/openid-connect/token`, {
                 grant_type: 'refresh_token',
                 client_id: import.meta.env.VITE_AUTH_CODE_CLIENT_ID,
-                refresh_token: refreshToken,
+                refresh_token: oAuthToken.refresh_token,
+            },{
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                }
             });
+            
 
             return response.data;
+        }
+
+        // TODO: Implement this
+        async function configureOTP() {
+            const oAuthToken: OAuth2Response = cookies.get('oAuthToken');
+
+            if (oAuthToken) {
+                const openid: OpenidResponse = jwtDecode(oAuthToken.id_token);
+
+                await request.put(`/api/users/${openid.sub}/execute-actions-email`, {
+                    actions: ['CONFIGURE_TOTP']
+                }, {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    }
+                });
+
+            }
+        }
+
+        async function logout() {
+
+            const oAuthToken: OAuth2Response = cookies.get('oAuthToken');
+
+            if (oAuthToken) {
+
+                await request.post(`/api/realms/${import.meta.env.VITE_AUTH_REAML_DEFAULT}/protocol/openid-connect/revoke`, {
+                    client_id: import.meta.env.VITE_AUTH_CODE_CLIENT_ID,
+                    token: oAuthToken.refresh_token,
+                    token_type_hint: 'refresh_token'
+                }, {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    }
+                });
+
+            }
         }
 
         return {
             getCode,
             getToken,
             refreshToken,
+            configureOTP,
+            logout,
             state,
             nonce
         }

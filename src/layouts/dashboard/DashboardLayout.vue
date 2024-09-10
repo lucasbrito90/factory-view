@@ -9,8 +9,14 @@ import HorizontalSidebar from './horizontal-sidebar/HorizontalSidebar.vue';
 import LoaderWrapper from './LoaderWrapper.vue';
 import VerticalHeaderVue from './vertical-header/VerticalHeader.vue';
 import VerticalSidebarVue from './vertical-sidebar/VerticalSidebar.vue';
-const customizer = useCustomizerStore();
+import moment from 'moment';
+import Cookies from 'universal-cookie';
+import type { OAuth2Response, OpenidResponse } from '@/context/enrollment/interfaces/auth';
+const cookies = new Cookies(null, {path: '/'});
+const oAuthToken: OAuth2Response = cookies.get('oAuthToken')
+const openidResponse: OpenidResponse = cookies.get('openidResponse');
 
+const customizer = useCustomizerStore();
 
 </script>
 
@@ -33,6 +39,12 @@ const customizer = useCustomizerStore();
       <HorizontalSidebar v-if="customizer.setHorizontalLayout" />
 
       <v-main class="page-wrapper">
+        <pre>{{ cookies.get('oAuthToken') }}</pre>
+        <pre>{{ cookies.get('openidResponse') }}</pre>
+        <pre>{{ moment(openidResponse.exp ?  openidResponse.exp * 1000 : 0) }}</pre>
+        <pre>{{  moment().isAfter(openidResponse.exp ?  openidResponse.exp * 1000 : 0) }}</pre>
+
+
         <v-container fluid>
           <div :class="customizer.boxed ? 'maxWidth' : ''">
 
@@ -45,6 +57,7 @@ const customizer = useCustomizerStore();
           </div>
         </v-container>
         <v-container fluid class="pt-0">
+          {{  }}
           <div :class="customizer.boxed ? 'maxWidth' : ''">
             <FooterPanel />
           </div>

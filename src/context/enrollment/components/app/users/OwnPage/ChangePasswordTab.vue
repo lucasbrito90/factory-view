@@ -2,7 +2,7 @@
 import SvgSprite from '@/components/shared/SvgSprite.vue';
 import { changePassword } from '@/context/enrollment/services/userapi';
 import { useAlertStore } from '@/stores/alert';
-import { useAuthUserStore } from '@/stores/authUser';
+import { useAuthStore } from '@/stores/auth';
 import { ref } from 'vue';
 
 const cpassword = ref('');
@@ -12,7 +12,7 @@ const show1 = ref(false);
 const show2 = ref(false);
 const show3 = ref(false);
 
-const user = useAuthUserStore();
+const authStore = useAuthStore();
 const alert = useAlertStore();
 
 import { useI18n } from 'vue-i18n';
@@ -54,9 +54,9 @@ function checkPassword() {
 
 async function updatePassword() {
 
-  if(user.userAuth?.email !== undefined) {
+  if(authStore.User && authStore.User?.email !== undefined) {
     const result = await changePassword({
-      email: user.userAuth?.email,
+      email: authStore.User?.email,
       password: npassword.value,
       old_password: cpassword.value,
       password_confirmation : conpassword.value

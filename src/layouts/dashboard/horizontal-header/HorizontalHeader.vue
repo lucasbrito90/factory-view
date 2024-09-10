@@ -15,7 +15,6 @@ import message1 from '@/assets/images/widget/message/message1.svg';
 import message2 from '@/assets/images/widget/message/message2.svg';
 import message3 from '@/assets/images/widget/message/message3.svg';
 import message4 from '@/assets/images/widget/message/message4.svg';
-import { useAuthUserStore } from '@/stores/authUser';
 
 const messagedrawer = ref(false);
 
@@ -26,7 +25,6 @@ watch(priority, (newPriority) => {
   priority.value = newPriority;
 });
 
-const user = useAuthUserStore();
 </script>
 
 <template>
