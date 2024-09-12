@@ -1,3 +1,8 @@
+export interface UserRepresentation {
+    email: string;
+    firstName: string;
+    lastName: string;
+}
 export interface RegisterUser {
     name: string;
     email: string;

@@ -1,5 +1,6 @@
 import { request } from "@/axios";
 import type { OAuth2Response, OpenidResponse } from "@/context/enrollment/interfaces/auth";
+import type { UserRepresentation } from '@/context/enrollment/interfaces/user';
 import { jwtDecode } from "jwt-decode";
 import Cookies from 'universal-cookie';
 
@@ -66,4 +67,39 @@ export async function updateOAuthToken(response: OAuth2Response): Promise<void> 
 
     const openidResponse: OpenidResponse = jwtDecode(response.id_token);
     cookies.set('openidResponse', openidResponse);
+}
+
+export async function createUser(user: UserRepresentation, options = {
+    enabled : true,
+    totp : false, 
+    emailVerified : false, 
+    username : user.email,
+    credentials : [
+        {
+            type : 'password',
+            value : user.email,
+            temporary : true
+        }
+    ], 
+    requiredActions : [
+        'UPDATE_PASSWORD',
+    ] , 
+    notBefore : 0,
+}) {
+    const oAuthToken: OAuth2Response = cookies.get('oAuthToken');
+
+    if (!oAuthToken) {
+        throw new Error('User not authenticated');
+    }
+
+    await request.post(`/api/admin/realms/${import.meta.env.VITE_AUTH_REAML_DEFAULT}/users`, {
+        ...user,
+        ...options
+    }, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${oAuthToken.access_token}`
+        }
+    })
+
 }

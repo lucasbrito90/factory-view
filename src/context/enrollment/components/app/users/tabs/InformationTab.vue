@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SvgSprite from '@/components/shared/SvgSprite.vue';
+import { createUser } from '@/context/enrollment/services/authorizatio_code_flow/keycloack';
 import { registerUser } from '@/context/enrollment/services/userapi';
 import { useAlertStore } from '@/stores/alert';
 import countries from "@/utils/helpers/countries";
@@ -88,6 +89,13 @@ async function submit() {
 
 
     try {
+
+      await createUser({
+        email: email.value,
+        firstName: firstname.value,
+        lastName: lastname.value,
+      });
+
       const result: number = await registerUser({
         name: fullname.value,
         email: email.value,

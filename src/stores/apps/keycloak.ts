@@ -59,7 +59,7 @@ export const useKeycloakStore = defineStore(
                 }
             });
 
-            request.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`;
+            request.defaults.headers['Authorization'] = `Bearer ${response.data.access_token}`;
 
             return response.data;
         }
