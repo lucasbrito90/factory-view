@@ -27,20 +27,17 @@ function onSelectedPhoto(event: Event) {
   if (photo.value instanceof File) {
     imageURL.value = URL.createObjectURL(photo.value);
   }
-
 }
-
-
 </script>
 <template>
   <div class="text-center">
     <v-avatar size="124" variant="outlined" color="primary" class="dashed bg-lightprimary" v-if="authStore.User?.avatar">
       <v-img :src="imageURL" width="124" alt="profile" />
-      <input type="file" class="preview-upload" aria-label="upload file" @change="onSelectedPhoto"/>
+      <input type="file" class="preview-upload" aria-label="upload file" @change="onSelectedPhoto" />
     </v-avatar>
     <v-avatar size="124" color="lightprimary" class="text-primary" variant="flat" v-if="!authStore.User?.avatar">
-      <span class="text-h1">{{authStore.User?.name?.substring(0, 2).toUpperCase() || ''}}</span>
-      <input type="file" class="preview-upload" aria-label="upload file" @change="onSelectedPhoto"/>
+      <span class="text-h1">{{ authStore.User?.name?.substring(0, 2).toUpperCase() || '' }}</span>
+      <input type="file" class="preview-upload" aria-label="upload file" @change="onSelectedPhoto" />
     </v-avatar>
     <h5 class="text-h5 pt-5 mb-1">{{ authStore.User?.name || '' }}</h5>
     <p class="text-h6 text-lightText">{{ authStore.User?.role || '' }}</p>

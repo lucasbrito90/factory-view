@@ -78,15 +78,17 @@ app.use(vuetify).mount('#app');
 import './axios';
 import { useAlertStore } from './stores/alert';
 
-axios.interceptors.response.use(response => {
-  return response;
-}, error => {
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    const alert = useAlertStore();
 
-  const alert = useAlertStore();
-
-  if (error.response && error.response.data) {
+    if (error.response && error.response.data) {
       alert.addError(error.response.data.message);
-  }
+    }
 
-  return Promise.reject(error);
-});
+    return Promise.reject(error);
+  }
+);

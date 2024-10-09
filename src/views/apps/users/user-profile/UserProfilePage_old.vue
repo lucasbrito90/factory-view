@@ -13,7 +13,6 @@ const userEmail: Ref<string | null> = ref(null);
 function setEmail(email: string) {
   userEmail.value = email;
 }
-
 </script>
 
 <template>
@@ -21,23 +20,21 @@ function setEmail(email: string) {
     <v-col cols="12" xl="3" md="4">
       <v-card variant="outlined" class="bg-surface" rounded="lg">
         <v-card-item>
-
           <v-tabs v-model="tab" color="primary" hide-slider density="compact" direction="vertical">
             <v-tab value="one" selected-class="bg-lightprimary" rounded="md" hide-slider>
               <SvgSprite name="custom-user-outline" class="v-icon--start" style="width: 18px; height: 18px" />
               {{ $t('Personal Information') }}
             </v-tab>
             <v-tab value="two" selected-class="bg-lightprimary" rounded="md" hide-slider v-if="userEmail">
-              
-              <SvgSprite name="custom-edit-outline" class="v-icon--start" style="width: 18px; height: 18px" /> {{
-                $t('PersonalInformation.Roles and Permissions') }}
+              <SvgSprite name="custom-edit-outline" class="v-icon--start" style="width: 18px; height: 18px" />
+              {{ $t('PersonalInformation.Roles and Permissions') }}
             </v-tab>
-<!-- 
+            <!-- 
             <v-tab value="three" selected-class="bg-lightprimary" rounded="md" hide-slider
               ><SvgSprite name="custom-lock-2" class="v-icon--start" style="width: 18px; height: 18px" /> {{ $t('Change Password') }}
             </v-tab> -->
 
-            <v-tab value="four" selected-class="bg-lightprimary" rounded="md" hide-slider  v-if="userEmail"
+            <v-tab value="four" selected-class="bg-lightprimary" rounded="md" hide-slider v-if="userEmail"
               ><SvgSprite name="custom-setup-outline" class="v-icon--start" style="width: 18px; height: 18px" /> {{ $t('Settings') }}
             </v-tab>
           </v-tabs>

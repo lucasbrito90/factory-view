@@ -53,26 +53,20 @@ function checkPassword() {
 }
 
 async function updatePassword() {
-
-  if(authStore.User && authStore.User?.email !== undefined) {
+  if (authStore.User && authStore.User?.email !== undefined) {
     const result = await changePassword({
       email: authStore.User?.email,
       password: npassword.value,
       old_password: cpassword.value,
-      password_confirmation : conpassword.value
+      password_confirmation: conpassword.value
     });
 
-    if(result) {
-      alert.addSuccess(
-        t('Password updated successfully')
-      );
+    if (result) {
+      alert.addSuccess(t('Password updated successfully'));
     } else {
-      alert.addError(
-        t('Password update failed')
-      );
+      alert.addError(t('Password update failed'));
     }
   }
-
 }
 </script>
 
@@ -82,7 +76,7 @@ async function updatePassword() {
       <v-card variant="flat" rounded="lg">
         <v-card variant="outlined" rounded="lg">
           <div class="pa-5">
-            <h5 class="text-subtitle-1 mb-0">{{ $t("Change Password")}}</h5>
+            <h5 class="text-subtitle-1 mb-0">{{ $t('Change Password') }}</h5>
           </div>
           <v-divider></v-divider>
           <v-card-text>
@@ -90,7 +84,7 @@ async function updatePassword() {
               <v-col cols="12" md="6">
                 <v-row>
                   <v-col cols="12">
-                    <v-label class="mb-2">{{ $t("Old Password") }}</v-label>
+                    <v-label class="mb-2">{{ $t('Old Password') }}</v-label>
                     <v-text-field
                       color="primary"
                       single-line
@@ -120,7 +114,7 @@ async function updatePassword() {
                     </v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-label class="mb-2">{{ $t("New Password") }}</v-label>
+                    <v-label class="mb-2">{{ $t('New Password') }}</v-label>
                     <v-text-field
                       color="primary"
                       single-line
@@ -151,7 +145,7 @@ async function updatePassword() {
                     </v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-label class="mb-2">{{ $t("Confirm Password") }}</v-label>
+                    <v-label class="mb-2">{{ $t('Confirm Password') }}</v-label>
                     <v-text-field
                       color="primary"
                       single-line
@@ -159,7 +153,7 @@ async function updatePassword() {
                       variant="outlined"
                       density="comfortable"
                       :type="show3 ? 'text' : 'password'"
-                      :rules="[() => (conpassword == npassword)]"
+                      :rules="[() => conpassword == npassword]"
                       hide-details
                       v-model="conpassword"
                     >
@@ -184,7 +178,7 @@ async function updatePassword() {
                 </v-row>
               </v-col>
               <v-col cols="12" md="6">
-                <h5 class="text-h5">{{ $t("New Password must contain") }}n:</h5>
+                <h5 class="text-h5">{{ $t('New Password must contain') }}n:</h5>
                 <v-list aria-label="content" aria-busy="true">
                   <v-list-item v-for="(item, index) in items" :key="index" border>
                     <template v-slot:prepend>
@@ -198,12 +192,7 @@ async function updatePassword() {
               </v-col>
             </v-row>
             <div class="text-right mt-4">
-              <v-btn 
-              color="primary" 
-              rounded="md" 
-              variant="flat"
-              @click="updatePassword"
-              >{{ $t("Update") }}</v-btn>
+              <v-btn color="primary" rounded="md" variant="flat" @click="updatePassword">{{ $t('Update') }}</v-btn>
             </div>
           </v-card-text>
         </v-card>

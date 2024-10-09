@@ -8,7 +8,7 @@ const languageDD = shallowRef([
   { title: 'Español', subtext: 'Spanish', value: 'es' },
   { title: 'српски', subtext: 'Serbian', value: 'sr' },
   { title: '한국어', subtext: 'Korean', value: 'ko' },
-  { title: 'Filipino', subtext: 'Filipino', value: 'fil' },
+  { title: 'Filipino', subtext: 'Filipino', value: 'fil' }
 ]);
 </script>
 

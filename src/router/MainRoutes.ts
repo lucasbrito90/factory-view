@@ -175,7 +175,7 @@ const MainRoutes = {
       name: 'Chats',
       path: '/app/chats',
       component: () => import('@/views/apps/chats/ChatPage.vue'),
-      meta: {permission: "admin"}
+      meta: { permission: 'admin' }
     },
     {
       name: 'Invoice dashboard',
@@ -278,8 +278,8 @@ const MainRoutes = {
       component: () => import('@/views/apps/users/list/ListPage2.vue')
     },
     {
-      name:'Edit User',
-      path:'/app/user/edit/:email',
+      name: 'Edit User',
+      path: '/app/user/edit/:email',
       component: () => import('@/context/enrollment/views/app/users/UserProfileEdit.vue'),
       props: true
     },

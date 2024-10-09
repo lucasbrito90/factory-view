@@ -16,7 +16,7 @@ export const router = createRouter({
     ComponentRoutes,
     AuthRoutes
   ]
-})
+});
 
 router.beforeEach(authMiddleware);
 

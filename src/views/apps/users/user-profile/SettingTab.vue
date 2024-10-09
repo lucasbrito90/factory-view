@@ -5,7 +5,7 @@ import { useAlertStore } from '@/stores/alert';
 import { ref } from 'vue';
 
 import { useI18n } from 'vue-i18n';
-const { t } = useI18n()
+const { t } = useI18n();
 
 const alert = useAlertStore();
 
@@ -35,9 +35,7 @@ const items = ref([
 ]);
 
 async function submit() {
-
   try {
-
     const result = await setUsersNotification({
       email: props.email,
       email_notifications: items.value[0].value,
@@ -46,9 +44,8 @@ async function submit() {
     });
 
     if (result === 200) {
-      alert.addSuccess(t("Settings updated successfully"));
+      alert.addSuccess(t('Settings updated successfully'));
     }
-
   } catch (error) {
     //TODO handle error
     // LOG.error(error);
@@ -63,19 +60,16 @@ async function submit() {
     </v-card-text>
     <v-divider></v-divider>
     <v-card-item>
-      
       <v-list lines="two" border aria-label="setting list" aria-busy="true">
         <v-list-item v-for="(item, index) in items" :key="index" class="py-6">
           <template v-slot:prepend>
             <SvgSprite :name="item.icon || ''" class="mr-4 text-primary" style="width: 24px; height: 24px" />
           </template>
           <v-list-item-title class="text-h5">{{ item.title }}</v-list-item-title>
-          <v-list-item-subtitle class="text-body-2 text-lightText" style="opacity: 1">
-            {{ item.content}}</v-list-item-subtitle>
+          <v-list-item-subtitle class="text-body-2 text-lightText" style="opacity: 1"> {{ item.content }}</v-list-item-subtitle>
           <template v-slot:append>
             {{ item.value }}
-            <v-switch color="primary" density="compact" aria-label="switch" class="ml-3" v-model="item.value" inset
-              hide-details></v-switch>
+            <v-switch color="primary" density="compact" aria-label="switch" class="ml-3" v-model="item.value" inset hide-details></v-switch>
           </template>
         </v-list-item>
       </v-list>
@@ -84,7 +78,6 @@ async function submit() {
         <v-btn variant="outlined" color="secondary" rounded="md">Cancel</v-btn>
         <v-btn @click="submit" variant="flat" color="primary" rounded="md" class="ml-3">Save</v-btn>
       </div>
-
     </v-card-item>
   </v-card>
 </template>

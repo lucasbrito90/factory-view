@@ -15,7 +15,6 @@ const url: Ref<string> = ref('');
 onMounted(async () => {
   url.value = await useKeycloak.getCode();
 });
-
 </script>
 
 <template>
@@ -43,13 +42,7 @@ onMounted(async () => {
           >
             <SvgSprite name="custom-document-2" style="width: 20px; height: 20px" />
           </v-btn>
-          <v-btn 
-            variant="flat" 
-            class="font-weight-medium ml-4"
-            height="42px"
-            color="success" 
-            rounded="md" 
-            :href="url">
+          <v-btn variant="flat" class="font-weight-medium ml-4" height="42px" color="success" rounded="md" :href="url">
             <template v-slot:prepend>
               <SvgSprite name="custom-link2" style="width: 20px; height: 20px" />
             </template>

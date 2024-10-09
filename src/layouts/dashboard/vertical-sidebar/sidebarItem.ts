@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export interface menu {
   header?: string;
@@ -20,8 +20,7 @@ export interface menu {
 }
 
 export async function getMenu(): Promise<menu[]> {
-  const response = await axios
-      .get(`${import.meta.env.VITE_API_ENROLLMENT}api/menu`);
+  const response = await axios.get(`${import.meta.env.VITE_API_ENROLLMENT}/mesnu/`);
 
   return response.data;
 }
@@ -44,7 +43,7 @@ const sidebarItem: menu[] = [
       {
         title: 'Create Invoice',
         to: '/app/customer/create-invoice'
-      },
+      }
     ]
   },
   {
@@ -63,7 +62,7 @@ const sidebarItem: menu[] = [
       {
         title: 'Project Details',
         to: '/projects/projectdetails'
-      },
+      }
     ]
   },
   {
@@ -250,7 +249,7 @@ const sidebarItem: menu[] = [
       }
     ]
   },
-  {header: 'Orders'},
+  { header: 'Orders' },
   {
     title: 'Orders',
     icon: 'custom-document',
@@ -270,7 +269,7 @@ const sidebarItem: menu[] = [
       {
         title: 'Product Review',
         to: '/customer/productreview'
-      },
+      }
     ]
   },
   {

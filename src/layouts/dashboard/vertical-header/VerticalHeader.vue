@@ -147,7 +147,7 @@ watch(priority, (newPriority) => {
     <v-menu :close-on-content-click="false" offset="8, 0">
       <template v-slot:activator="{ props }">
         <v-btn class="profileBtn mr-0" aria-label="profile" variant="text" rounded="circle" icon v-bind="props">
-          <SmallAvatar :custom-class="['py-2']"/>
+          <SmallAvatar :custom-class="['py-2']" />
         </v-btn>
       </template>
       <v-sheet rounded="md" width="290">

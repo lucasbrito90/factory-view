@@ -24,7 +24,6 @@ watch(priority, (newPriority) => {
   // yes, console.log() is a side effect
   priority.value = newPriority;
 });
-
 </script>
 
 <template>

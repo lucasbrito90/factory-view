@@ -68,7 +68,7 @@ const profiledata2 = ref([
       <v-window v-model="tab">
         <v-window-item value="111">
           <v-list class="px-2" aria-label="profile list" aria-busy="true">
-            <v-list-item @click="router.push({path: '/app/user/edit-my-profile'})" color="primary" base-color="secondary" rounded="md">
+            <v-list-item @click="router.push({ path: '/app/user/edit-my-profile' })" color="primary" base-color="secondary" rounded="md">
               <template v-slot:prepend>
                 <div class="mr-4">
                   <SvgSprite name="custom-edit" style="width: 18px; height: 18px" />
@@ -87,7 +87,6 @@ const profiledata2 = ref([
 
               <v-list-item-title class="text-h6"> Logout</v-list-item-title>
             </v-list-item>
-            
           </v-list>
         </v-window-item>
         <v-window-item value="222">

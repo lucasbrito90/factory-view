@@ -1,55 +1,62 @@
 export interface UserRepresentation {
-    email: string;
-    firstName: string;
-    lastName: string;
+  email: string;
+  firstName: string;
+  lastName: string;
 }
 export interface RegisterUser {
-    name: string;
-    email: string;
-    date_of_birth?: string;
-    phone_number?: string;
-    address?: string;
-    country?: string;
-    city?: string;
-    note?: string;
-    sector?: string;
-    role?: string;
+  name: string;
+  email: string;
+  date_of_birth?: string;
+  phone_number?: string;
+  address?: string;
+  country?: string;
+  city?: string;
+  note?: string;
+  sector?: string;
+  role?: string;
 }
 
 export interface AddPermission {
-    email: string;
-    permissions: string[];
+  email: string;
+  permissions: string[];
 }
 
 export interface SetUsersNotification {
-    email: string;
-    email_notifications: boolean;
-    sms_notifications: boolean;
-    web_notifications: boolean;
+  email: string;
+  email_notifications: boolean;
+  sms_notifications: boolean;
+  web_notifications: boolean;
+}
+
+export interface Permissions {
+  id: string;
+  name: string;
+}
+
+export interface Phone {
+  id: string;
+  country_code: string;
+  number: string;
+  extension: string;
+  is_primary: boolean;
 }
 
 export interface User {
-    address?: string;
-    city?: string;
-    country?: string;
-    created_at?: string;
-    date_of_birth?: string;
-    email: string;
-    email_notifications?: number;
-    email_verified_at?: string;
-    id: number;
-    language?: string;
-    name?: string;
-    phone_number?: string;
-    postal_code?: string;
-    role?: string;
-    sector?: string;
-    sms_notifications?: number;
-    state_province?: string;
-    updated_at?: string;
-    avatar?: File | null;
-    completion_percentage?: number;
-    active?: boolean;
-    web_notifications?: number;
-    permissions?: string[];
+  id: string;
+  name?: string;
+  email: string;
+  date_of_birth?: string;
+  language?: string;
+  role?: string;
+  sector?: string;
+  email_notifications?: boolean;
+  sms_notifications?: boolean;
+  web_notifications?: boolean;
+  completed_steps?: number;
+  created_at?: string;
+  updated_at?: string;
+  permissions: Permissions[];
+  address?: [];
+  phones?: Phone[];
+  avatar?: File | null | string;
 }

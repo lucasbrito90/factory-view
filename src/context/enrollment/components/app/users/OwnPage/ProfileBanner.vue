@@ -53,7 +53,6 @@ const chartOptions = computed(() => {
     }
   };
 });
-
 </script>
 
 <template>
@@ -64,8 +63,8 @@ const chartOptions = computed(() => {
     <apexchart type="radialBar" class="radial-small" height="140" width="140" :options="chartOptions" :series="completionPercentage">
     </apexchart>
     <div>
-      <h5 class="text-h5">{{ $t("PersonalInformation.Edit Your Profile") }}</h5>
-      <p class="mb-0 text-caption text-lightText">{{ $t("PersonalInformation.Complete Your Profile") }}</p>
+      <h5 class="text-h5">{{ $t('PersonalInformation.Edit Your Profile') }}</h5>
+      <p class="mb-0 text-caption text-lightText">{{ $t('PersonalInformation.Complete Your Profile') }}</p>
     </div>
   </div>
 </template>

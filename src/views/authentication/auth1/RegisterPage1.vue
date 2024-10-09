@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import AuthRegister from '../authForms/AuthRegister.vue';
 
-
 // import SocialMediasRegister from '@/components/apps/socialprofile/SocialMediasRegister.vue';
 </script>
 
@@ -19,9 +18,8 @@ import AuthRegister from '../authForms/AuthRegister.vue';
             <v-col cols="12" md="12">
               <v-card elevation="0" variant="outlined" rounded="lg" class="loginBox bg-surface">
                 <v-card-text class="pa-sm-10 pa-6">
-
                   <!-- <SocialMediasRegister /> -->
-                   
+
                   <!---Register Form-->
                   <AuthRegister />
                   <!---Register Form-->

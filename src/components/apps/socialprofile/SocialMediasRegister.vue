@@ -1,5 +1,4 @@
 <script setup>
-
 import Logo from '@/layouts/dashboard/logo/LogoMain.vue';
 
 // assets

@@ -6,10 +6,10 @@ import { useRouter } from 'vue-router';
 
 const showPwd = ref(false);
 const showConfrmPwd = ref(false);
-const router= useRouter();
+const router = useRouter();
 
 const firstname: Ref<string> = ref('');
-const lastname: Ref<string> =  ref('');
+const lastname: Ref<string> = ref('');
 const password: Ref<string> = ref('');
 const confirmPassword: Ref<string> = ref('');
 const email: Ref<string> = ref('');
@@ -22,7 +22,7 @@ const passwordRules = ref([
   (v: string) => !!v || 'Password is required',
   (v: string) => (v && v.length >= 8) || 'Password must be less than 8 characters',
   (v: string) => /(?=.*[!@#$%^&*])/.test(v) || 'Password must contain at least one special character',
-  (v: string) => /(?=.*[A-Z])/.test(v) || 'Password must contain at least one uppercase letter',
+  (v: string) => /(?=.*[A-Z])/.test(v) || 'Password must contain at least one uppercase letter'
 ]);
 const confirmPasswordRules = ref([
   (v: string) => !!v || 'Confirm Password is required',
@@ -48,7 +48,7 @@ async function validate() {
       email: email.value,
       password: password.value,
       password_confirmation: confirmPassword.value,
-      name: fullname.value,
+      name: fullname.value
     });
 
     if (response === true) {
@@ -147,8 +147,18 @@ async function validate() {
       >
         <template v-slot:append-inner>
           <v-btn color="secondary" aria-label="icon" icon rounded variant="text">
-            <SvgSprite name="custom-eye-invisible" style="width: 20px; height: 20px" v-if="showConfrmPwd == false" @click="showConfrmPwd = !showConfrmPwd" />
-            <SvgSprite name="custom-eye" style="width: 20px; height: 20px" v-if="showConfrmPwd == true" @click="showConfrmPwd = !showConfrmPwd" />
+            <SvgSprite
+              name="custom-eye-invisible"
+              style="width: 20px; height: 20px"
+              v-if="showConfrmPwd == false"
+              @click="showConfrmPwd = !showConfrmPwd"
+            />
+            <SvgSprite
+              name="custom-eye"
+              style="width: 20px; height: 20px"
+              v-if="showConfrmPwd == true"
+              @click="showConfrmPwd = !showConfrmPwd"
+            />
           </v-btn>
         </template>
       </v-text-field>

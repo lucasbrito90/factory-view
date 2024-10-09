@@ -13,7 +13,7 @@ import ExtraBox from './extrabox/ExtraBox.vue';
 
 const authStore = useAuthStore();
 
-const menus: menu[] = await getMenu(authStore.User?.email || '');
+const menus: menu[] = await getMenu(authStore.User?.id || '');
 const customizer = useCustomizerStore();
 const sidebarMenu = shallowRef(menus);
 </script>

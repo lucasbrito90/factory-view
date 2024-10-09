@@ -11,7 +11,6 @@ import VerticalHeaderVue from './vertical-header/VerticalHeader.vue';
 import VerticalSidebarVue from './vertical-sidebar/VerticalSidebar.vue';
 
 const customizer = useCustomizerStore();
-
 </script>
 
 <template>
@@ -35,7 +34,6 @@ const customizer = useCustomizerStore();
       <v-main class="page-wrapper">
         <v-container fluid>
           <div :class="customizer.boxed ? 'maxWidth' : ''">
-
             <Alerts />
 
             <!-- Loader start -->
@@ -45,7 +43,7 @@ const customizer = useCustomizerStore();
           </div>
         </v-container>
         <v-container fluid class="pt-0">
-          {{  }}
+          {{}}
           <div :class="customizer.boxed ? 'maxWidth' : ''">
             <FooterPanel />
           </div>
