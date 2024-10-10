@@ -191,13 +191,13 @@ const getPrimaryOrFirstPhone = (phones: Phone[] | undefined): string | undefined
             <div class="d-flex align-center ga-4 mb-5">
               <span>{{ $t('Progress') }}</span>
               <v-progress-linear
-                :model-value="card.completion_percentage"
+                :model-value="card.completed_steps"
                 aria-label="progressbar"
                 background-color="pink lighten-3"
                 rounded
                 color="primary"
               ></v-progress-linear>
-              <span>{{ card.completion_percentage && card.completion_percentage.toPrecision(2) + '%' }} </span>
+              <span>{{ card.completed_steps && card.completed_steps.toPrecision(2) + '%' }} </span>
             </div>
             <v-row>
               <v-col col="6">

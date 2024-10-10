@@ -34,15 +34,7 @@ interface PaginationOptions {
 export async function listUsers(options: PaginationOptions): Promise<Pagination<User>> {
   const { page = 1, limit = 10, name = '', email = '', role = '', sector = '' } = options;
 
-  const params = new URLSearchParams({
-    page: page.toString(),
-    limit: limit.toString(),
-    name,
-    email,
-    role,
-    sector
-  });
-  const response = await request.get(`/api/users/`, { params });
+  const response = await request.get(`/api/users?limit=${limit}&page=${page}&filter.name=$ilike:${name}&filter.email=$ilike:${email}&filter.role=$ilike:${role}&filter.sector=$ilike:${sector}`);
 
   return response.data;
 }
